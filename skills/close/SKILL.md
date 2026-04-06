@@ -14,6 +14,7 @@ Create `HANDOFF_<YYYY-MM-DD>.txt` in `<project>/.s-workspace/` with:
 
 ```
 HANDOFF — <date>
+Author: <name of the person who ran this session>
 
 ## What Was Done
 <Numbered list of what was accomplished this session>
@@ -30,13 +31,15 @@ HANDOFF — <date>
 
 **Completeness requirement:** Every file created or modified during the session MUST be listed. Omitting outputs breaks cross-session continuity. If unsure, err on the side of including too much.
 
+**Author identification:** The `Author:` line must identify who ran the session. Pull this from the user's global `~/.claude/CLAUDE.md` if it states their name, or from the project's `CLAUDE.md` collaborator list. If neither is available, ask the user once and cache the answer in project memory.
+
 ## Step 3: Append to Persistent Session Log
 Append a summary entry to `<project>/.s-workspace/SESSION_LOG.md`. This is a running, reverse-chronological log across all sessions. Create the file if it doesn't exist.
 
 Format for each entry:
 ```
 ---
-## <YYYY-MM-DD>
+## <YYYY-MM-DD> (<author name>)
 **Tasks:** <1-line summary of what was done>
 **Files:** <comma-separated list of files created or modified>
 **Next:** <1-line next step>

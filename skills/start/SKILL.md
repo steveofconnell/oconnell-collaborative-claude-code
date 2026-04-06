@@ -52,7 +52,7 @@ HOOKS (automatic):
 Do NOT scan `~/.claude/skills/`, `~/.claude/agents/`, or `~/.claude/rules/` — those paths are outside the project directory and trigger permission prompts. The list above is maintained manually; update it when adding new skills/agents/rules.
 
 ## Step 4: Read Latest Handoff
-Check for the most recent `HANDOFF_*.txt` in `<project>/.s-workspace/`. If one exists, read it and briefly summarize what was done last session and what the next steps are.
+Check for the most recent `HANDOFF_*.txt` in `<project>/.s-workspace/`. If one exists, read it and briefly summarize what was done last session and what the next steps are. **Always include who authored the handoff** (the `Author:` line) — this is essential in collaborative projects where multiple people work in the same directory. If the most recent handoff was written by someone other than the current user, flag this prominently (e.g., "Last session was run by [Name] on [date]").
 
 ## Step 5: Read Memory Index
 Read `<project>/MEMORY.md` if it exists. Scan the index for any **feedback-type memories that reference session behavior** (e.g., entries mentioning "session," "startup," "each session," "open with"). For each such entry, follow the link and read the full memory file **before composing any startup output**. These memories contain behavioral directives that modify the startup sequence itself — they are not background context. Execute their instructions as part of the startup. Then note any other relevant context for the current session.
