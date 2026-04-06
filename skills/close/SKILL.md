@@ -62,10 +62,8 @@ Print a brief summary of what was saved and where.
 Not every handoff is a session close. After a sustained block of work (roughly 30+ minutes or several completed tasks), write an **intermediate handoff** — same format as above, but:
 
 - Use a letter suffix on the filename: `HANDOFF_<YYYY-MM-DD>b.txt`, `HANDOFF_<YYYY-MM-DD>c.txt`, etc.
-- Do NOT prompt the user to close the session. This is a checkpoint, not an exit.
 - Do NOT run memory updates or the session log — those happen at final close only.
-- Do mention it naturally: "I've written an intermediate handoff covering the work so far." One line, no ceremony.
 
 The purpose is continuity insurance: if the session ends unexpectedly (context limit, crash, user walks away), there is a recent record of what happened. It also helps the user — or a coauthor — pick up mid-stream if they open the project while work is in progress.
 
-**When to write one:** Use judgment. Good triggers include: finishing a multi-step task, switching to a different area of the project, or noticing that significant work has accumulated since the last handoff. Do not write one after every small edit — that is noise, not continuity.
+**Intermediate handoffs are written at the user's discretion.** Claude may suggest one after a sustained block of work ("Want me to write an intermediate handoff for this chunk?"), but never writes one without being asked. The user decides when a checkpoint is warranted.
