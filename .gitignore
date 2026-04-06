@@ -1,0 +1,39 @@
+# Personal config — not committed to git
+# These files contain identity, credentials, or machine-specific settings.
+# See PERSONAL_CONFIG.md for descriptions of what each does and how to set up your own.
+
+# Global config (contains personal identity, role, preferences, active projects)
+CLAUDE.md
+
+# Claude Code state (MCP servers, OAuth tokens, project settings)
+.claude.json
+
+# Permissions (auto-trusted tools — personal risk tolerance)
+settings.local.json
+
+# Sound notification hooks and personal UI preferences
+settings.json
+
+# Multi-project launcher (personal project list)
+open-projects.sh
+
+# Window management
+rectangle_config.plist
+terminal_left_half.sh
+iterm2_claude_profile.json
+
+# OAuth credentials — NEVER commit
+gmail-mcp/
+
+# Status line (references personal pricing estimates)
+statusline.sh
+
+# Institution-specific templates (build your own)
+templates/
+
+# Artifacts
+.Rhistory
+.DS_Store
+
+# Dropbox conflict files
+*conflicted copy*
