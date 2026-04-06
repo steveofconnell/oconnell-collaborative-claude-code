@@ -20,7 +20,7 @@ If a coauthor pointed you here and you're joining a shared project:
 # 1. Install Claude Code (https://claude.ai/code) if you haven't already
 
 # 2. Clone this repo
-git clone <repo-url> ~/claude-research-config
+git clone https://github.com/steveofconnell/oconnell-collaborative-claude-code.git ~/claude-research-config
 
 # 3. In the shared project directory, link the config
 cd /path/to/shared-project

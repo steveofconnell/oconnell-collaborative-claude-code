@@ -76,7 +76,7 @@ I keep all personal config in a Dropbox folder and symlink `~/.claude/` to it, s
 If you're here because a coauthor pointed you to this repo:
 
 1. Install [Claude Code](https://claude.ai/code) if you haven't already
-2. Clone this repo: `git clone <repo-url> ~/claude-research-config`
+2. Clone this repo: `git clone https://github.com/steveofconnell/oconnell-collaborative-claude-code.git ~/claude-research-config`
 3. In the shared project directory, run: `~/claude-research-config/setup.sh`
 4. Open Claude Code in the project: `cd <project> && claude`
 5. Type `/start` to begin a session, `/close` to end one
