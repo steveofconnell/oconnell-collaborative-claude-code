@@ -104,6 +104,10 @@ git pull
 
 All linked projects pick up the changes immediately via symlinks.
 
+## Acknowledgments
+
+This configuration draws inspiration and some rules, skills, and workflow patterns directly from [Pedro Sant'Anna's](https://psantanna.com/) Claude Code setup and [Claude Blattmann's](https://github.com/claudeblattmann) work.
+
 ## License
 
 MIT
