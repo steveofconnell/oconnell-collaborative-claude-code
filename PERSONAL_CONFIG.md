@@ -32,6 +32,30 @@ Mine includes sound notification hooks — a chime when Claude needs input, a di
 
 Also includes a status line showing model, cost, and context usage. See the repo's hook scripts for the research-relevant hooks (rawdata protection, context monitoring) — those are tracked in git.
 
+### Multi-Project Launcher (`open-projects.sh`)
+
+The author runs a single shell command (`open-projects`) that opens every active research project simultaneously, each in its own iTerm2 tab, with Claude Code already running. This is the single biggest quality-of-life improvement in the setup. Features worth replicating:
+
+**Per-project color-coded tabs.** Each project gets a distinct background and foreground color (dark red for the admin window, dark blue for one project, dark green for another, etc.). When you have 4-5 tabs open, you can identify which project you're looking at instantly without reading the tab title. The colors are set via iTerm2 AppleScript (`set background color`, `set foreground color`) and also remap ANSI black to visible gray so dark-colored terminal output remains legible against the dark backgrounds.
+
+**Bypass permissions mode.** Each tab launches Claude Code with `--permission-mode bypassPermissions`, which skips all tool permission prompts. This is appropriate when you trust the config and want to work fast — Claude can read, write, search, and run commands without interruption. You should only do this after you are comfortable with what Claude Code does and have protective hooks (like `protect-rawdata.sh`) in place to block the operations that truly should not happen. Start with the default permission mode and graduate to bypass once you trust the guardrails.
+
+**Auto-start.** Each tab runs `claude '/start'`, which triggers the full session startup sequence (config discovery, latest handoff, memory load, academic integrity acknowledgment). By the time you switch to a tab, it's already briefed and waiting for instructions.
+
+**Staggered launch.** Tabs open with a configurable delay between them (default 5 seconds) to avoid concurrent startup contention — multiple Claude instances hitting the same MCP servers or API simultaneously can cause timeouts.
+
+**Self-bootstrapping.** The script checks for all dependencies on every run. On a fresh device, it installs iTerm2 (via Homebrew), creates all `~/.claude/` symlinks, sets up keyboard shortcuts, and adds the shell alias — before launching any projects. The second run just opens projects.
+
+**Caffeinate tab.** The last tab runs `caffeinate -di` to prevent the machine from sleeping during long Claude sessions.
+
+**Project list from config.** The script reads the `## Active Projects` section of your global `CLAUDE.md` to determine which directories to open. Adding or removing a project is a one-line edit.
+
+To build your own version, the core pattern is:
+1. Read a list of project directories from a config file
+2. For each, use AppleScript (macOS) or your terminal's equivalent to create a new tab
+3. Set the tab title, colors, and initial command (`cd <project> && claude`)
+4. Add a shell alias so you can launch everything with one word
+
 ### `~/.claude/settings.local.json` (Permissions)
 
 Controls which tools Claude can use without asking. This is personal risk tolerance — start restrictive and open up as you build trust. The default (prompting for everything) is fine for getting started.
