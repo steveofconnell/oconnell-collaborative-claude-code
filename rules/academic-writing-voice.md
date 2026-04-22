@@ -1,6 +1,6 @@
 ---
 description: "Stephen O'Connell's academic writing voice, style patterns, and anti-patterns — extracted from nine published papers"
-globs: ["*.tex", "*.md", "*.qmd", "*.Rmd", "*.txt"]
+globs: ["*.tex", "*.qmd", "*.Rmd"]
 ---
 
 # Academic Writing Voice and Style
@@ -90,7 +90,7 @@ Detailed analysis extracted from nine published papers across seven journals (AE
 
 ### Anti-patterns
 - No filler transitions ("It is important to note that")
-- No hollow intensifiers ("significantly" unless statistical, "crucial," "robust" unless robustness checks)
+- No hollow intensifiers ("significantly" unless statistical, "crucial," "key," "robust" unless robustness checks)
 - No bullet-point prose dressed as paragraphs
 - No over-hedging (one hedge per claim)
 - No uninterpreted numbers
@@ -104,6 +104,12 @@ Detailed analysis extracted from nine published papers across seven journals (AE
 - No genuflecting disclaimers about methodological choices ("my use of X does not endorse X as a policy goal"). Just state the rationale directly.
 - No language that reduces the agency of people being studied ("predisposes their residents"). People make choices; places don't predispose.
 - Avoid noticeable word repetition within close proximity — if the same distinctive word appears twice in a paragraph or abstract, rephrase one instance.
+- No "track/s" as a verb. It is vague — say what the relationship actually is: "correlate with," "predict," "co-move with," "rise with," etc. (2026-04-09)
+- Avoid "specific" — it is almost always filler. "Specific network ties" is just "network ties." Cut it unless removing it genuinely changes the meaning. (2026-04-10)
+- Avoid "broader" — usually filler that gestures at scope without adding information. "Broader stability" is just "stability." Acceptable only when doing genuine contrastive work (e.g., "broader community" vs. the dyad). (2026-04-10)
+- No "rest/rests/rested on" in analytical sentences ("the analysis rests on," "the identification rests on"). It is descriptive without being substantive — say what the analysis *does* or *uses*. Acceptable in narrative or historical context ("the system rested on a specific commitment"). (2026-04-15)
+- Never use "load-bearing." This is a classic AI phrase and must never appear in the user's writing. If found anywhere in a draft (manuscript, memo, referee response, etc.), remove or rephrase it — describe what the claim or variable actually does in the argument rather than labeling it "load-bearing." (2026-04-14)
+- Avoid "dominant" as an adjective. It is a crummy, vague word that gestures at prominence without saying what is prominent or why. Use more specific alternatives: "standard," "common," "widely used," "core," "leading," "primary." Acceptable only in technical contexts where "dominant" has a precise meaning (e.g., dominant strategy, dominant eigenvalue). (2026-04-14)
 
 ## Writing Learned Preferences
 - The writing style guide reflects historical patterns but the user's current preferences override observed past usage. Always defer to explicit corrections over historical analysis. (2026-03-15)

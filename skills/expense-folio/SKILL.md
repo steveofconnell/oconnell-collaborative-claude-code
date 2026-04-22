@@ -94,6 +94,26 @@ Use these standard categories (matching prior folios):
 - `to JPMC` — corp card charges (Emory pays JPMC directly)
 - `reimbursement` — personal card/cash charges (reimbursed to paycheck)
 
+### File naming protocol
+All receipt files in `pdfs/` follow this convention: `MMDD_category_vendor_details.ext`
+
+- **MMDD**: date of the expense (not the file creation date), zero-padded
+- **category**: `flight`, `rideshare`, `meal`, `agentfee`, `bankstmt`
+- **vendor**: short lowercase name (`avelo`, `uber`, `lyft`, `delta`, `vinovolo`, etc.)
+- **details**: route (`ATL-HVN`), confirmation code (`UZXXWC`), driver name (`Marius`), card last-4 for bank statements, or other distinguishing info
+- No spaces, no special characters — underscores only
+- Keep original file extension (`.pdf`, `.jpg`, etc.)
+
+When a single expense has multiple backup files (e.g., merchant receipt + bank statement), use the same MMDD_category prefix so they sort together. Bank statement screenshots are always `MMDD_bankstmt_XXXX_vendor_description.ext` where XXXX is the card last-4.
+
+Examples:
+- `0329_rideshare_uber_toATL.pdf`
+- `0329_bankstmt_6642_vinovolo_breakfast.jpg`
+- `0215_flight_avelo_ATL-HVN-ATL_7PZ5SK.pdf`
+- `0309_flight_delta_CTM_LGA-ATL_HSVPWT.pdf`
+
+When renaming files, update the File 1 / File 2 references in the spreadsheet in the same operation.
+
 ### File references
 Column H (File 1) and I (File 2) reference PDF filenames in the `pdfs/` folder. Use the filename without extension. Put `n/a` for per diem rows.
 
@@ -126,6 +146,40 @@ After building the spreadsheet, explicitly list:
 - Amounts that need verification against card statements
 - PDF receipts that still need to be collected and placed in the `pdfs/` folder
 - Per diem rates that should be verified
+
+## Rules and Principles
+
+### Per Diem vs. Actual Meal Receipts
+- Emory requires trips of **5 or more days** to claim per diem. Trips under 5 days get no per diem — remove the line entirely rather than leaving it at $0.
+- **When per diem is claimed:** per diem covers all MI&E. Do NOT also submit individual meal receipts for reimbursement — that would be double-dipping.
+- **When per diem is NOT claimed** (trips under 5 days): individual meal expenses can be submitted directly with receipts. Each meal is a standalone line item in the folio.
+
+### Meal Expenses (actual receipts, no per diem)
+- Only applicable when the trip does not qualify for per diem (under 5 days).
+- When a meal is charged to a card (personal or corp), it is a standalone line item.
+- Required fields: date, restaurant name and city, amount including tip, card used, number of people present ("solo meal" or list attendees).
+- Expense category: **Meals — solo** or **Meals — group** depending on attendees.
+
+### Receipts for Card Charges
+- Emory does not require receipts for charges **under $75**. Note this in the folio but still file the receipt if available.
+- Charges **$75 and above** require a backup PDF/image in the `pdfs/` folder.
+- **Personal card charges require a bank statement screenshot.** Any charge NOT on the Emory corp card (-9890) needs a screenshot from online banking showing the transaction, in addition to the merchant receipt. This is required for reimbursement. Flag all personal-card line items that are missing a bank screenshot in Step 7 (Flag Gaps).
+
+### Cancelled Transactions
+- Cancelled rides (Lyft, Uber) that show $0 or were refunded: include in the folio with a note ("Cancelled — no charge") so the audit trail is complete, but set amount to $0.
+- Cancelled flights with partial refunds: show the net charge after refund/credit. Add a note explaining the cancellation and reference both the original booking receipt and the cancellation confirmation.
+
+### Credit Card Identification
+- Always identify charges by the **last 4 digits** of the card number.
+- Known cards: -9890 (Emory corp JPMC), -7503 (personal Visa), -6642 (personal card). Update this list as new cards appear.
+
+### April Receipts / Multi-Month Trips
+- For trips spanning month boundaries, receipts may arrive in batches. Stage later-arriving receipts in a separate `<month>receipts/pdfs/` folder (e.g., `aprilreceipts/pdfs/`) for the next folio period.
+- When closing out a folio, move any receipts that belong to the next period into the appropriate folder — don't leave them mixed in.
+
+### Folio Submission
+- Folios are submitted monthly or per-trip to Emory. The spreadsheet is the primary submission artifact along with the backup PDFs.
+- Before submission, verify: all SUM/SUMIFS formulas resolve correctly, every line item with a card charge has a matching receipt file referenced, and the "to JPMC" + "reimbursement" totals equal the grand total.
 
 ## Step 8: Open the File
 Open the completed Excel file with `open <path>` so the user can review immediately.

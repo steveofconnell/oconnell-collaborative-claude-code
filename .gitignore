@@ -28,6 +28,15 @@ gmail-mcp/
 # Status line (references personal pricing estimates)
 statusline.sh
 
+# Calendar rule (contains personal/family email addresses and calendar IDs)
+rules/calendar-check.md
+
+# Google Doc to-do removal skill (contains personal doc ID)
+skills/remove/
+
+# Slide deck examples (personal academic presentations)
+skills/slides/examples/
+
 # Institution-specific templates (build your own)
 templates/
 

@@ -6,9 +6,9 @@ A shared configuration for [Claude Code](https://claude.ai/code) tailored to col
 
 | Directory | Purpose |
 |-----------|---------|
-| `rules/` | Behavioral rules auto-loaded by Claude Code — academic integrity, data protection, writing standards, project structure, data pipeline conventions |
+| `rules/` | Behavioral rules auto-loaded by Claude Code — academic integrity, data protection, writing standards, project structure, data pipeline conventions, script architecture guardrails, task management |
 | `hooks/` | Lifecycle hook scripts — blocks writes to raw data directories, monitors context usage, preserves state before context compression |
-| `skills/` | Slash commands — `/start` (session startup with handoff continuity), `/close` (write handoff document), `/review-paper` (simulated referee report), and others |
+| `skills/` | Slash commands — `/start` (session startup), `/close` (handoff document), `/review-paper` (simulated referee report), `/slides` (beamer decks), `/verify-bib` (citation integrity check), `/figurenotes` (table/figure notes), `/qa-loop` (adversarial critic-fixer), and others |
 | `agents/` | Fresh-context reviewer agents — writing quality review, methodology audit |
 | `templates/` | Reusable institutional templates (IRB submissions, etc.) |
 

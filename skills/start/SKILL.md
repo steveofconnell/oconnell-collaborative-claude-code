@@ -39,6 +39,7 @@ AGENTS (fresh-context reviewers):
 RULES (auto-loaded):
   academic-integrity      — Citations, originality, attribution (always-on)
   project-structure       — Folder structure, naming, documentation (always-on)
+  script-architecture     — Anti-proliferation guardrails, funnel principle (*.R, *.py, *.do)
   academic-writing-voice  — Voice/style guide + writing preferences (*.tex, *.md, *.qmd, *.Rmd, *.txt)
   data-integrity          — Transcription safety + digitization protocol (data files, rawdata/processing dirs)
 
@@ -58,7 +59,7 @@ Check for the most recent `HANDOFF_*.txt` in `<project>/.s-workspace/`. If one e
 Read `<project>/MEMORY.md` if it exists. Scan the index for any **feedback-type memories that reference session behavior** (e.g., entries mentioning "session," "startup," "each session," "open with"). For each such entry, follow the link and read the full memory file **before composing any startup output**. These memories contain behavioral directives that modify the startup sequence itself — they are not background context. Execute their instructions as part of the startup. Then note any other relevant context for the current session.
 
 ## Step 6: Check Pending TODOs
-Glob for `.s-workspace/TODO_*.md`. For any with `status: pending` and `remind_on_startup: true` in their frontmatter, surface them to the user.
+Read `.s-workspace/TODO.md` if it exists. Surface all pending items (unchecked `- [ ]` entries) to the user as part of the startup briefing. This is the single source of within-project tasks — do not pull tasks from handoffs, memory, or email.
 
 ## Step 7: Project-Specific Startup
 After completing the above, check the project's `CLAUDE.md` for any additional startup behavior (e.g., TaskHQ fetches a Google Doc to-do list). Execute those directives.

@@ -29,11 +29,13 @@ Read `~/.claude/rules/academic-writing-voice.md` if available for the full style
 ### 1. AI-Typical Patterns (highest priority)
 Flag any text that reads as AI-generated:
 - Filler transitions ("It is important to note that," "In other words")
-- Hollow intensifiers ("significantly" used non-statistically, "crucial," "robust" outside robustness checks)
+- Hollow intensifiers ("significantly" used non-statistically, "crucial," "key," "robust" outside robustness checks)
 - Bullet-point prose dressed as paragraphs
 - Over-hedging (more than one hedge per claim)
 - Generic topic sentences that could open any paragraph in any paper
 - "Reassuringly" (the author considers this poor style)
+- "highlight" — filler verb that rarely adds meaning. Almost always replaceable with "show," "demonstrate," or cutting entirely. Flag every instance.
+- Filler/vague words to flag: "various," "dimensions," "importantly," "crucially," "different"/"differently," "dynamic/s," "such [X]" (e.g., "such measures"), "substantial," "drives" (as a verb — vague causal language), "impacts" (as a verb — imprecise and informal), "track/s" (as a verb — vague; say what the relationship actually is: "correlate with," "predict," "co-move with," "rise with," etc.). These are overused in the author's prior work. Flag each instance. Do not suggest generic substitutes from the same register (e.g., replacing "drives" with "shapes" solves nothing). Either cut the word or replace with the specific verb that says what actually happens in context.
 - Theatrical one-liners ("This paper disaggregates.")
 - Decorative adjectives or adverbs that add no information
 - Standalone dramatic paragraph openers ("The results are sharp." "The collapse was structured.") — empty theatrical sentences
@@ -50,6 +52,7 @@ Flag any text that reads as AI-generated:
 - Does the introduction preview all findings and frame contribution as numbered points?
 
 ### 3. Precision and Concreteness
+- Flag acronyms not defined at first use. Every acronym (e.g., CATE, HTE, FGD, ILA) must be spelled out the first time it appears in the document, with the acronym in parentheses. Flag any acronym whose first occurrence is the abbreviated form.
 - Flag naked percentages or index values without referents ("30 percent" of what?)
 - Flag abstract constructs without concrete definitions ("exposure," "shock," "impact" — to what?)
 - Flag vague quantifiers characterizing others' work ("most scholars," "the literature") without citations

@@ -72,6 +72,18 @@ I connect Gmail and Google Calendar via MCP servers so Claude can triage my inbo
 
 The author maintains templates for recurring institutional submissions (IRB applications, grant forms, etc.) specific to his university. These are excluded from the repo because they are institution-specific, but the `templates/` directory is a useful pattern. Build your own for any multi-field form you submit more than once — IRB protocols, grant budget justifications, data management plans. Having a template means Claude can fill it in from project details rather than starting from scratch.
 
+### Calendar Check Rule (`rules/calendar-check.md`)
+
+A rule that ensures all five of the author's Google Calendars (personal, work, spouse, two kids' activities) are queried in parallel whenever checking availability. Contains personal email addresses and calendar IDs. If you use Google Calendar MCP, create your own version listing your calendars.
+
+### Remove Skill (`skills/remove/`)
+
+A skill for removing completed items from a personal Google Doc to-do list. Contains the specific document ID. If you track tasks in a Google Doc, create your own version with your doc ID.
+
+### Slide Deck Examples (`skills/slides/examples/`)
+
+The `/slides` skill includes calibration examples from the author's own conference and seminar presentations. These are excluded from the repo. The skill works without them — it falls back to the rhetorical rules in the SKILL.md itself — but having real examples improves output quality. To build your own: collect 3-5 of your best slide decks (tex + pdf) and place them in `skills/slides/examples/`.
+
 ### Writing Voice Profile
 
 The `academic-writing-voice.md` rule in this repo contains a generic style guide for applied economics writing. The author also has a detailed personal voice profile built from analyzing his own published papers. If you want Claude to write in your voice rather than generic academic prose:

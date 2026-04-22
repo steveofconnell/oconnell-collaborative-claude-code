@@ -15,7 +15,10 @@ The organizing principles are: **self-evidence** (filenames, variable names, and
 
 ## Script naming and organization
 - Within each code folder (`2processing/`, `4code/`), name scripts with numeric prefixes that reflect pipeline order: `01_clean.R`, `02_merge.R`, `03_regress.R`, etc. The numbering makes execution order self-documenting within that stage. When creating a new script, check existing files in that folder and assign the next number in sequence. If a script is inserted between existing steps, use an intermediate number (e.g., `02a_geocode.R`) rather than renumbering everything.
-- One script, one task. Each script should do one step of the pipeline (read, clean, merge, geocode, regress, etc.). Do not combine data preparation and analysis in the same file. There is a good middle ground between too few scripts and too many — each script should have a clear, singular purpose described by its filename.
+- One script, one task. Each script should do one step of the pipeline (read, clean, merge, geocode, regress, etc.). Do not combine data preparation and analysis in the same file.
+
+## Pipeline architecture — the funnel principle
+The pipeline should be shaped like a funnel: many source-specific read/clean scripts at the top → fewer merge/assembly scripts in the middle → one baseline + one robustness script per analysis dataset at the bottom. Script count should decrease at each stage, not stay flat or grow. Linear chains — where each script's sole purpose is to incrementally transform the previous script's output — are the primary symptom of over-splitting and must be consolidated into one script with labeled sections. See `rules/script-architecture.md` (scoped to `.R`, `.py`, `.do`) for operational guardrails.
 
 ## Variable and dataset naming
 - Descriptive variable and dataset names. Never leave cryptic or indexed names (`var563`, `val6`, `hh`, `person`) — rename variables early in processing to be long and descriptive. Do not rely on variable labels as a substitute for clear names.
