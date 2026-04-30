@@ -20,9 +20,9 @@ def get_session_dir():
     return session_dir
 
 def find_active_plan(cwd):
-    """Look for the most recent plan file in .s-workspace/ or quality_reports/plans/."""
+    """Look for the most recent plan file in .workspace/ or quality_reports/plans/."""
     plan_dirs = [
-        Path(cwd) / ".s-workspace",
+        Path(cwd) / ".workspace",
         Path(cwd) / "quality_reports" / "plans",
     ]
     plans = []
@@ -36,7 +36,7 @@ def find_active_plan(cwd):
 
 def find_recent_handoff(cwd):
     """Find the most recent handoff file."""
-    ws = Path(cwd) / ".s-workspace"
+    ws = Path(cwd) / ".workspace"
     if not ws.exists():
         return None
     handoffs = sorted(ws.glob("HANDOFF_*.txt"))

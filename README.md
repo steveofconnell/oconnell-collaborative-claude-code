@@ -66,7 +66,7 @@ claude
 - **`/start` and `/close` are mandatory.** Every session begins with `/start` and ends with `/close`. These are not optional conveniences — they are the mechanism by which collaborators stay informed of each other's work. Skipping `/close` means the next person opens the project with no idea what happened. Skipping `/start` means working without context from prior sessions.
 - **Handoff documents identify their author.** Every handoff records who ran the session, what was done, what files were touched, and what's next. When you `/start` a project and the last handoff was written by a coauthor, you see exactly what they did and where they left off.
 - **Intermediate handoffs.** During long sessions, Claude writes checkpoint handoffs (same format, letter-suffixed filenames like `HANDOFF_2026-04-06b.txt`) after sustained blocks of work. These are not session closes — they are continuity insurance. If a session ends unexpectedly or a coauthor opens the project mid-stream, there is a recent record of what happened.
-- **Project memory.** Key decisions, references, and context persist across sessions in `.s-workspace/memory/`.
+- **Project memory.** Key decisions, references, and context persist across sessions in `.workspace/memory/`.
 
 ## Personal Configuration
 
@@ -86,10 +86,16 @@ my-project/
 │   ├── hooks/   → repo/hooks/  # Symlink
 │   ├── skills/  → repo/skills/ # Symlink
 │   └── agents/  → repo/agents/ # Symlink
-├── .s-workspace/
-│   ├── HANDOFF_*.txt            # Session handoffs
+├── .workspace/
+│   ├── TODO.md                  # Project task list
+│   ├── SESSION_LOG.md           # Running session log
 │   ├── memory/                  # Memory files
-│   └── plans/                   # Active plans
+│   ├── handoffs/                # Session handoff documents
+│   ├── plans/                   # Active plans
+│   ├── scratch/                 # Exploratory scripts, intermediate data
+│   ├── reference/               # Source PDFs, text extractions, codebooks
+│   ├── notes/                   # Working prose: memos, outlines, lit notes
+│   └── logs/                    # Pipeline run logs, build logs
 ├── 1rawdata/                    # Source data (protected — read-only)
 ├── 2processing/                 # Cleaning/construction scripts
 ├── 3data/                       # Analysis-ready datasets

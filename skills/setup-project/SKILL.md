@@ -37,8 +37,14 @@ Create the following directories (skip any that exist):
 │   ├── tables/              # Output tables from 4code/
 │   └── figures/             # Output figures from 4code/
 ├── .claude/                 # Claude Code project config
-├── .s-workspace/        # Working files, exploratory output, temp
-│   └── memory/              # Project memory files
+├── .workspace/              # Working files, exploratory output, temp
+│   ├── memory/              # Project memory files
+│   ├── handoffs/            # Session handoff documents
+│   ├── plans/               # Implementation plans
+│   ├── scratch/             # Exploratory scripts, intermediate data
+│   ├── reference/           # Source PDFs, text extractions, codebooks
+│   ├── notes/               # Working prose: memos, outlines, lit notes
+│   └── logs/                # Pipeline run logs, build logs
 ```
 
 ### Step 4: Create Scaffolding Files
@@ -56,7 +62,7 @@ Create the following directories (skip any that exist):
 
 ## Memory Storage
 - `MEMORY.md` → project root
-- Individual memory files → `.s-workspace/memory/`
+- Individual memory files → `.workspace/memory/`
 ```
 
 **`MEMORY.md`** (project root) — empty index:

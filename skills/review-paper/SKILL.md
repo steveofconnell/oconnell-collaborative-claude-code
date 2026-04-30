@@ -62,7 +62,7 @@ Reviewed as: Top-5 applied micro journal submission
 ```
 
 ### Step 5: Save and Present
-- Save the report to `<project>/.s-workspace/referee_report_<filename>_<date>.md`
+- Save the report to `<project>/.workspace/referee_report_<filename>_<date>.md`
 - Present the full report to the user.
 - Ask: "Want me to dig deeper on any specific issue, or start addressing the major issues?"
 

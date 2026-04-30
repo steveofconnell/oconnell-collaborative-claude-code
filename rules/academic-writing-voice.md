@@ -104,6 +104,7 @@ Detailed analysis extracted from nine published papers across seven journals (AE
 - No genuflecting disclaimers about methodological choices ("my use of X does not endorse X as a policy goal"). Just state the rationale directly.
 - No language that reduces the agency of people being studied ("predisposes their residents"). People make choices; places don't predispose.
 - Avoid noticeable word repetition within close proximity — if the same distinctive word appears twice in a paragraph or abstract, rephrase one instance.
+- Never use "key" as an adjective ("key distinction," "key finding," "key implication"). It is a hollow intensifier that adds no information. Just state the distinction, finding, or implication directly. (2026-04-26)
 - No "track/s" as a verb. It is vague — say what the relationship actually is: "correlate with," "predict," "co-move with," "rise with," etc. (2026-04-09)
 - Avoid "specific" — it is almost always filler. "Specific network ties" is just "network ties." Cut it unless removing it genuinely changes the meaning. (2026-04-10)
 - Avoid "broader" — usually filler that gestures at scope without adding information. "Broader stability" is just "stability." Acceptable only when doing genuine contrastive work (e.g., "broader community" vs. the dyad). (2026-04-10)

@@ -4,7 +4,7 @@ Applies to: all task lists, TODO files, handoff next-steps sections, and any enu
 
 ## Project TODO file
 
-Every project has a single `.s-workspace/TODO.md`. This is the canonical source of within-project tasks. Not handoff documents, not memory files, not scattered individual `TODO_*.md` files — one file per project.
+Every project has a single `.workspace/TODO.md`. This is the canonical source of within-project tasks. Not handoff documents, not memory files, not scattered individual `TODO_*.md` files — one file per project.
 
 ### Format
 
@@ -31,22 +31,22 @@ Rules:
 ### Lifecycle
 
 **Adding tasks:**
-- When a to-do surfaces during a session (user states it, or it's a clear next step from work just done), write it to `.s-workspace/TODO.md` immediately. Do not defer to handoffs, memory, or conversation notes.
-- If `.s-workspace/TODO.md` doesn't exist yet, create it (and `.s-workspace/` if needed).
+- When a to-do surfaces during a session (user states it, or it's a clear next step from work just done), write it to `.workspace/TODO.md` immediately. Do not defer to handoffs, memory, or conversation notes.
+- If `.workspace/TODO.md` doesn't exist yet, create it (and `.workspace/` if needed).
 
 **Completing tasks:**
-- When the user says something is done (explicitly or by completing the work), update `.s-workspace/TODO.md` right then — move the item to `## Completed` with the done date. Do not wait for session close.
+- When the user says something is done (explicitly or by completing the work), update `.workspace/TODO.md` right then — move the item to `## Completed` with the done date. Do not wait for session close.
 
 **Dropping tasks:**
 - If the user says to drop or cancel a task, delete it from the file entirely. No "cancelled" status — if it's not worth doing, it's not worth tracking.
 
 **Startup:**
-- Read `.s-workspace/TODO.md` and surface pending items as part of the startup briefing.
-- Do NOT pull tasks from handoff "Next Steps" sections, memory files, or email. `.s-workspace/TODO.md` is the only source.
-- If a handoff mentions a next step that isn't in `.s-workspace/TODO.md`, it was either completed or intentionally not added. Do not auto-promote it.
+- Read `.workspace/TODO.md` and surface pending items as part of the startup briefing.
+- Do NOT pull tasks from handoff "Next Steps" sections, memory files, or email. `.workspace/TODO.md` is the only source.
+- If a handoff mentions a next step that isn't in `.workspace/TODO.md`, it was either completed or intentionally not added. Do not auto-promote it.
 
 **Session close:**
-- Before writing a handoff, check that any work completed during the session is reflected in `.s-workspace/TODO.md` (items moved to Completed). The handoff's "Next Steps" section should be consistent with `.s-workspace/TODO.md` pending items but is not the source of truth — `.s-workspace/TODO.md` is.
+- Before writing a handoff, check that any work completed during the session is reflected in `.workspace/TODO.md` (items moved to Completed). The handoff's "Next Steps" section should be consistent with `.workspace/TODO.md` pending items but is not the source of truth — `.workspace/TODO.md` is.
 
 ### Cleanup
 
@@ -84,8 +84,8 @@ When multiple tasks form a chain (A blocks B blocks C), make the chain visible. 
 ## Scope
 
 This applies to:
-- Project `.s-workspace/TODO.md` files (primary)
-- Handoff documents (next-steps sections — secondary, must be consistent with `.s-workspace/TODO.md`)
+- Project `.workspace/TODO.md` files (primary)
+- Handoff documents (next-steps sections — secondary, must be consistent with `.workspace/TODO.md`)
 - Task lists presented in conversation
 - Any enumeration of pending work when advising the user on priorities
 

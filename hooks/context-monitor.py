@@ -50,7 +50,7 @@ def main():
             message = f"CONTEXT WARNING (est. ~{estimated_pct:.0f}%): Auto-compaction is imminent. Save any important context to files now."
             state["last_warning_at"] = now
         elif estimated_pct >= 80 and not throttled:
-            message = f"CONTEXT NOTE (est. ~{estimated_pct:.0f}%): Approaching context limit. Consider saving key decisions or findings to .s-workspace/."
+            message = f"CONTEXT NOTE (est. ~{estimated_pct:.0f}%): Approaching context limit. Consider saving key decisions or findings to .workspace/."
             state["last_warning_at"] = now
         elif estimated_pct >= 55 and not throttled and state.get("last_warning_at", 0) == 0:
             message = f"Context usage est. ~{estimated_pct:.0f}%. Midpoint — if you've learned anything memory-worthy, now is a good time to save it."

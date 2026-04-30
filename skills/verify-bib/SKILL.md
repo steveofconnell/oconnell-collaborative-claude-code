@@ -23,7 +23,7 @@ Optional phase flag:
 
 ## State file
 
-Resumable. State lives at `<project>/.s-workspace/bib_verification_state.json`:
+Resumable. State lives at `<project>/.workspace/bib_verification_state.json`:
 
 ```json
 {
@@ -103,7 +103,7 @@ For each entry where `entry_verified: true` and `pdf_status != "downloaded"`:
 2. **Download**. Use `WebFetch` to retrieve the PDF. Save to `<project>/<pdf_dir>/<entry_key>.pdf`. Create the directory if needed (default `5manuscript/pdfs/` for article-heavy projects, `book/pdfs/` for book projects).
 3. **Verify the download**: confirm the file opens, has a nonzero page count, and the first page contains the expected title and authors. If not, the download failed or was a wrong file — mark `pdf_status: "not_found"` and explain.
 3a. **Emory library proxy fallback (WebFetch)**. If step 2 finds only paywalled or access-gated URLs, before flagging as paywalled, attempt to fetch through the user's library proxy: prepend `http://proxy.library.emory.edu/login?url=` to the direct URL and try `WebFetch`. If the response contains the expected PDF (check content-type and first-page text), save and proceed as in steps 2-3. If the response is a login/CAS redirect page or HTML, `WebFetch` can't authenticate — continue to step 3b.
-3b. **Delegate to Claude Chrome**. When WebFetch can't get through the proxy, write (or append to) a Claude Chrome brief at `<project>/.s-workspace/claude_chrome_bib_pdf_brief.md`. The brief lists, for each paywalled entry:
+3b. **Delegate to Claude Chrome**. When WebFetch can't get through the proxy, write (or append to) a Claude Chrome brief at `<project>/.workspace/claude_chrome_bib_pdf_brief.md`. The brief lists, for each paywalled entry:
     - Bib key
     - Authors, year, title
     - Direct publisher URL
@@ -115,7 +115,7 @@ For each entry where `entry_verified: true` and `pdf_status != "downloaded"`:
    ```
    % pdf: book/pdfs/Author2020.pdf (42 pages)
    ```
-5. **If only paywalled versions exist** (publisher requires subscription, only paid preview available, Sci-Hub/LibGen should NOT be used): add to `<project>/.s-workspace/bib_paywalled_todos.md` a line with both the direct and Emory-proxied URLs:
+5. **If only paywalled versions exist** (publisher requires subscription, only paid preview available, Sci-Hub/LibGen should NOT be used): add to `<project>/.workspace/bib_paywalled_todos.md` a line with both the direct and Emory-proxied URLs:
    ```
    - [ ] Author (2020) — manual download needed.
      - Direct: https://journal.com/article/...
@@ -141,7 +141,7 @@ Goal: for every sentence in the manuscript body that attributes a claim to a cit
    - Read the PDF. For short articles, read the whole paper. For books or long documents, use the following strategy:
      - If the manuscript cites a specific page, read that page plus two pages of context.
      - Otherwise, read the abstract, introduction, and conclusion first to determine the paper's main claims. If those don't address the manuscript's claim, read section headers / table of contents (for books) to identify the relevant chapter/section.
-     - Books in particular: never read the whole book. Use the table of contents plus keyword search (via `Grep` on a `pdftotext` conversion cached to `.s-workspace/bib_text_cache/<key>.txt`) to locate the passage most likely to support or refute the manuscript claim.
+     - Books in particular: never read the whole book. Use the table of contents plus keyword search (via `Grep` on a `pdftotext` conversion cached to `.workspace/bib_text_cache/<key>.txt`) to locate the passage most likely to support or refute the manuscript claim.
    - For each claim, judge and record:
      - ✓ **Supported**: PDF contains the claim substantively.
      - ⚠ **Partial**: PDF contains a related but weaker / differently-scoped claim.
@@ -154,16 +154,16 @@ Goal: for every sentence in the manuscript body that attributes a claim to a cit
 
 At the end of phase 3 (or when phases 1-2 are complete enough to be worth summarizing):
 
-1. Write `<project>/.s-workspace/memory/bib_verification_report_YYYY-MM-DD.md`. Contents:
+1. Write `<project>/.workspace/memory/bib_verification_report_YYYY-MM-DD.md`. Contents:
    - Summary counts: entries total / verified / discrepancy / unconfirmed; PDFs downloaded / paywalled / not found; claims supported / partial / unsupported / uncheckable / pending.
    - **List every discrepancy** from phase 1 (bib field errors).
    - **List every paywalled item** needing manual download.
    - **List every unsupported or uncheckable claim** (phase 3), with manuscript location, claim text, and best-effort PDF excerpt.
 2. Add an entry to `MEMORY.md` (project root) pointing to the report:
    ```
-   - [Bibliography verification (YYYY-MM-DD)](.s-workspace/memory/bib_verification_report_YYYY-MM-DD.md) — N entries verified, M discrepancies, K unsupported claims
+   - [Bibliography verification (YYYY-MM-DD)](.workspace/memory/bib_verification_report_YYYY-MM-DD.md) — N entries verified, M discrepancies, K unsupported claims
    ```
-3. Update `.s-workspace/TODO.md` with any follow-up items surfaced: manual PDF downloads, manuscript claim revisions, bib field corrections.
+3. Update `.workspace/TODO.md` with any follow-up items surfaced: manual PDF downloads, manuscript claim revisions, bib field corrections.
 
 ## Operating notes
 

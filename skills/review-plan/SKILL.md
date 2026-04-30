@@ -19,7 +19,7 @@ $ARGUMENTS — optional flags:
 ### Step 1: Locate the Plan
 Three-tier priority:
 1. **Explicit file** — `file:path` argument
-2. **Recent plan** — most recent file in `~/.claude/plans/` or `.s-workspace/`
+2. **Recent plan** — most recent file in `~/.claude/plans/` or `.workspace/`
 3. **Conversation history** — scan current session for the plan
 
 If no plan found: "No plan found. Usage: `/review-plan` (after plan mode) or `/review-plan file:path/to/plan.md`"
@@ -106,5 +106,5 @@ Ask: "Apply these revisions? Or provide feedback to refine further."
 /review-plan
 /review-plan file:5manuscript/revision_plan.md
 /review-plan quick
-/review-plan role:"field survey logistics specialist" file:.s-workspace/survey_plan.md
+/review-plan role:"field survey logistics specialist" file:.workspace/survey_plan.md
 ```

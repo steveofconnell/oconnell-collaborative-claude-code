@@ -24,7 +24,7 @@ Check for author count. If single-authored, note that the review should enforce 
 Launch the Writing Reviewer agent (`~/.claude/agents/writing-reviewer.md`) with the document text.
 
 ### Step 4: Present Results
-Present the agent's report directly to the user. Save to `<project>/.s-workspace/writing_review_<filename>_<date>.md`.
+Present the agent's report directly to the user. Save to `<project>/.workspace/writing_review_<filename>_<date>.md`.
 
 Ask: "Want me to address any of these issues?"
 

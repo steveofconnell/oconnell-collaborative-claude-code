@@ -5,6 +5,38 @@ globs: ["*.csv", "*.xlsx", "*.xls", "*.tsv", "*.R", "*.py", "*.do", "*rawdata*",
 
 # Data Integrity: Transcription and Digitization
 
+## PII Signpost Convention
+
+Data files are assumed de-identified unless a `pii.txt` marker file is
+present in the same directory. Before reading any data file (CSV, Excel,
+Stata, RDS, etc.), check for `pii.txt` in the file's directory.
+
+**If `pii.txt` exists:**
+
+The directory contains identifiable human subjects data. Do NOT read data
+files in this directory. Instead, use one of the safe patterns:
+
+  a. Read the codebook, data dictionary, or `source.txt` — not the data.
+  b. Read only the header row (e.g., `head -1 file.csv` via Bash).
+  c. Ask the user to describe the structure verbally.
+  d. Read a de-identified extract from a different directory.
+  e. Ask the user to provide synthetic example rows.
+
+The `pii.txt` file itself should describe what is sensitive (e.g., "Contains
+GPS coordinates, respondent names, household IDs"). Read `pii.txt` to
+understand which fields are identifying — this informs which columns are
+safe to reference by name in code and which must never appear in context.
+
+**If no `pii.txt` exists:**
+
+Assume the data is de-identified or non-sensitive. Proceed normally — read
+the file, inspect contents, write code against actual values as needed.
+
+**When creating raw data directories** for human subjects projects, always
+create a `pii.txt` alongside `source.txt` if the data contains any
+identifiable information. The `pii.txt` file is a one-time setup cost that
+protects the data for every future session.
+
 ## Data Transcription and Visual Source Reading — CRITICAL
 **This section exists because of a documented failure.** In a prior session, Claude generated plausible-looking numerical data when reading degraded microfilm scans, producing values that were internally consistent and reasonable-looking but factually wrong. These fabricated values entered a research dataset and were only caught through manual spot-checking against source documents. This is an unacceptable failure mode that can corrupt research data and damage the user's professional reputation.
 

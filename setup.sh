@@ -41,9 +41,14 @@ else
     echo "  .claude/settings.json copied (template — edit for project-specific hooks)"
 fi
 
-# Create .s-workspace/ if needed
-mkdir -p "$PROJECT_DIR/.s-workspace/memory"
-mkdir -p "$PROJECT_DIR/.s-workspace/plans"
+# Create .workspace/ subdirectory structure
+mkdir -p "$PROJECT_DIR/.workspace/memory"
+mkdir -p "$PROJECT_DIR/.workspace/handoffs"
+mkdir -p "$PROJECT_DIR/.workspace/plans"
+mkdir -p "$PROJECT_DIR/.workspace/scratch"
+mkdir -p "$PROJECT_DIR/.workspace/reference"
+mkdir -p "$PROJECT_DIR/.workspace/notes"
+mkdir -p "$PROJECT_DIR/.workspace/logs"
 
 echo ""
 echo "Done. Open Claude Code in this directory and type /start to begin."

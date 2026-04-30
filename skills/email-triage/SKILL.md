@@ -22,7 +22,7 @@ $ARGUMENTS — optional time window (e.g., "today", "since yesterday", "last 3 d
 ## Instructions
 
 ### Step 1: Check for Triage Rules
-Read `<project>/.s-workspace/email_triage_rules.md` if it exists. This file contains calibrated priority rules specific to the user. Apply these rules when categorizing. If the file does not exist, use general judgment and note that calibration has not been done yet.
+Read `<project>/.workspace/email_triage_rules.md` if it exists. This file contains calibrated priority rules specific to the user. Apply these rules when categorizing. If the file does not exist, use general judgment and note that calibration has not been done yet.
 
 ### Step 2: Fetch Recent Emails
 Use the Gmail MCP tools to list/search emails from the specified time window. Fetch enough metadata to categorize (sender, subject, date, snippet). For emails that look potentially important, fetch full content.
@@ -52,7 +52,7 @@ From the NOISE category, identify senders that appear repeatedly (3+ times in re
 - Frequency estimate (daily, weekly, etc.)
 - Whether there's likely an unsubscribe link
 
-Track these in `<project>/.s-workspace/email_unsubscribe_candidates.md` — append new candidates, don't duplicate existing ones. Create the file if it doesn't exist.
+Track these in `<project>/.workspace/email_unsubscribe_candidates.md` — append new candidates, don't duplicate existing ones. Create the file if it doesn't exist.
 
 ### Step 5: Present Briefing
 Format as:

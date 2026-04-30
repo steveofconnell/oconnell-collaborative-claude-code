@@ -10,7 +10,7 @@ Finalize the current session. Follow these steps:
 If only startup checks ran and no tasks were actioned, skip the handoff and memory updates. Just acknowledge the close.
 
 ## Step 2: Write Handoff Document
-Create `HANDOFF_<YYYY-MM-DD>.txt` in `<project>/.s-workspace/` with:
+Create `HANDOFF_<YYYY-MM-DD>.txt` in `<project>/.workspace/handoffs/` with:
 
 ```
 HANDOFF — <date>
@@ -34,7 +34,7 @@ Author: <name of the person who ran this session>
 **Author identification:** The `Author:` line must identify who ran the session. Pull this from the user's global `~/.claude/CLAUDE.md` if it states their name, or from the project's `CLAUDE.md` collaborator list. If neither is available, ask the user once and cache the answer in project memory.
 
 ## Step 3: Append to Persistent Session Log
-Append a summary entry to `<project>/.s-workspace/SESSION_LOG.md`. This is a running, reverse-chronological log across all sessions. Create the file if it doesn't exist.
+Append a summary entry to `<project>/.workspace/SESSION_LOG.md`. This is a running, reverse-chronological log across all sessions. Create the file if it doesn't exist.
 
 Format for each entry:
 ```
@@ -49,7 +49,7 @@ Insert the new entry at the top of the file (after any header line). Keep existi
 
 ## Step 4: Update Memory
 - Update `<project>/MEMORY.md` if any new memory-worthy information was learned.
-- Create or update individual memory files in `<project>/.s-workspace/memory/` as needed.
+- Create or update individual memory files in `<project>/.workspace/memory/` as needed.
 - Memory files go in the **project directory**, never in `~/.claude/projects/`.
 
 ## Step 5: Confirm
