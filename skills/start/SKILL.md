@@ -53,7 +53,14 @@ HOOKS (automatic):
 Do NOT scan `~/.claude/skills/`, `~/.claude/agents/`, or `~/.claude/rules/` — those paths are outside the project directory and trigger permission prompts. The list above is maintained manually; update it when adding new skills/agents/rules.
 
 ## Step 4: Read Recent Handoffs
-Check for the **three most recent** `HANDOFF_*.txt` files in `<project>/.workspace/handoffs/` (sorted by filename descending). Read all three and briefly summarize each: what was done, by whom, and when. Present them in reverse chronological order (most recent first). This gives multi-session context rather than just the last session. **Always include who authored each handoff** (the `Author:` line) — this is essential in collaborative projects where multiple people work in the same directory. If any handoff was written by someone other than the current user, flag this prominently (e.g., "Session on [date] was run by [Name]"). If fewer than three handoffs exist, read whatever is available.
+List all `HANDOFF_*.txt` files in `<project>/.workspace/handoffs/` (sorted by filename descending). Determine how many to read using this rule:
+
+- **Minimum: 3 handoffs** (the baseline for multi-session context).
+- **If the user's most recent handoff is older than the 3rd-most-recent file**, extend the window to include all handoffs from the user's most recent one through the present. This ensures the user sees everything that happened while they were away.
+
+To apply this: scan the `Author:` line of each handoff starting from the most recent. If the user (Stephen O'Connell) authored one of the 3 most recent, read 3. If not, keep scanning backward until you find one the user authored, and read all handoffs from that one forward (inclusive). If no user-authored handoff is found, read all available handoffs (up to a reasonable cap of ~10).
+
+Read the selected handoffs and briefly summarize each: what was done, by whom, and when. Present them in reverse chronological order (most recent first). **Always include who authored each handoff** (the `Author:` line) — this is essential in collaborative projects where multiple people work in the same directory. If any handoff was written by someone other than the current user, flag this prominently (e.g., "Session on [date] was run by [Name]"). If fewer than three handoffs exist, read whatever is available.
 
 ## Step 5: Read Memory Index
 Read `<project>/MEMORY.md` if it exists. Scan the index for any **feedback-type memories that reference session behavior** (e.g., entries mentioning "session," "startup," "each session," "open with"). For each such entry, follow the link and read the full memory file **before composing any startup output**. These memories contain behavioral directives that modify the startup sequence itself — they are not background context. Execute their instructions as part of the startup. Then note any other relevant context for the current session.

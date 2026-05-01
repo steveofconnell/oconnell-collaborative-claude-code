@@ -87,15 +87,9 @@ my-project/
 │   ├── skills/  → repo/skills/ # Symlink
 │   └── agents/  → repo/agents/ # Symlink
 ├── .workspace/
-│   ├── TODO.md                  # Project task list
-│   ├── SESSION_LOG.md           # Running session log
+│   ├── HANDOFF_*.txt            # Session handoffs
 │   ├── memory/                  # Memory files
-│   ├── handoffs/                # Session handoff documents
-│   ├── plans/                   # Active plans
-│   ├── scratch/                 # Exploratory scripts, intermediate data
-│   ├── reference/               # Source PDFs, text extractions, codebooks
-│   ├── notes/                   # Working prose: memos, outlines, lit notes
-│   └── logs/                    # Pipeline run logs, build logs
+│   └── plans/                   # Active plans
 ├── 1rawdata/                    # Source data (protected — read-only)
 ├── 2processing/                 # Cleaning/construction scripts
 ├── 3data/                       # Analysis-ready datasets
