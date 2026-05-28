@@ -1,0 +1,180 @@
+{
+    "Profiles": [
+        {
+            "Name": "Claude",
+            "Guid": "claude-code-profile-001",
+            "Allow Title Setting": false,
+            "Title Components": 1,
+            "Custom Directory": "No",
+            "Foreground Color": {
+                "Red Component": 0.0,
+                "Green Component": 1.0,
+                "Blue Component": 0.0,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Background Color": {
+                "Red Component": 0.0,
+                "Green Component": 0.0,
+                "Blue Component": 0.0,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Bold Color": {
+                "Red Component": 0.0,
+                "Green Component": 1.0,
+                "Blue Component": 0.0,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Cursor Color": {
+                "Red Component": 0.0,
+                "Green Component": 1.0,
+                "Blue Component": 0.0,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Cursor Text Color": {
+                "Red Component": 0.0,
+                "Green Component": 0.0,
+                "Blue Component": 0.0,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Selection Color": {
+                "Red Component": 0.0,
+                "Green Component": 0.35,
+                "Blue Component": 0.0,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Selected Text Color": {
+                "Red Component": 0.0,
+                "Green Component": 1.0,
+                "Blue Component": 0.0,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Ansi 0 Color": {
+                "Red Component": 0.25,
+                "Green Component": 0.25,
+                "Blue Component": 0.25,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Ansi 1 Color": {
+                "Red Component": 0.99,
+                "Green Component": 0.28,
+                "Blue Component": 0.30,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Ansi 2 Color": {
+                "Red Component": 0.0,
+                "Green Component": 1.0,
+                "Blue Component": 0.0,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Ansi 3 Color": {
+                "Red Component": 1.0,
+                "Green Component": 1.0,
+                "Blue Component": 0.0,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Ansi 4 Color": {
+                "Red Component": 0.40,
+                "Green Component": 0.60,
+                "Blue Component": 1.0,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Ansi 5 Color": {
+                "Red Component": 0.85,
+                "Green Component": 0.45,
+                "Blue Component": 0.85,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Ansi 6 Color": {
+                "Red Component": 0.0,
+                "Green Component": 0.90,
+                "Blue Component": 0.90,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Ansi 7 Color": {
+                "Red Component": 0.85,
+                "Green Component": 0.85,
+                "Blue Component": 0.85,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Ansi 8 Color": {
+                "Red Component": 0.40,
+                "Green Component": 0.40,
+                "Blue Component": 0.40,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Ansi 9 Color": {
+                "Red Component": 0.99,
+                "Green Component": 0.28,
+                "Blue Component": 0.30,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Ansi 10 Color": {
+                "Red Component": 0.0,
+                "Green Component": 1.0,
+                "Blue Component": 0.0,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Ansi 11 Color": {
+                "Red Component": 1.0,
+                "Green Component": 1.0,
+                "Blue Component": 0.0,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Ansi 12 Color": {
+                "Red Component": 0.40,
+                "Green Component": 0.60,
+                "Blue Component": 1.0,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Ansi 13 Color": {
+                "Red Component": 0.85,
+                "Green Component": 0.45,
+                "Blue Component": 0.85,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Ansi 14 Color": {
+                "Red Component": 0.0,
+                "Green Component": 0.90,
+                "Blue Component": 0.90,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Ansi 15 Color": {
+                "Red Component": 1.0,
+                "Green Component": 1.0,
+                "Blue Component": 1.0,
+                "Alpha Component": 1.0,
+                "Color Space": "sRGB"
+            },
+            "Normal Font": "MenloRegular 12",
+            "Use Non-ASCII Font": false,
+            "ASCII Anti Aliased": true,
+            "Non-ASCII Anti Aliased": true,
+            "Scrollback Lines": 10000,
+            "Unlimited Scrollback": false,
+            "Terminal Type": "xterm-256color",
+            "Prompt Before Closing 2": 2
+        }
+    ]
+}

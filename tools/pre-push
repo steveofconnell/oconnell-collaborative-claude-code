@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# pre-push hook — runs the personal-content scanner before any push to this repo,
+# so the maintainer's personal content can't leak into the shared/public version.
+# Installed by setup.sh (git config core.hooksPath tools). Self-locates the scanner.
+set -uo pipefail
+HOOK_DIR="$(cd "$(dirname "$0")" && pwd)"
+bash "$HOOK_DIR/personal-content-scan.sh"
+exit $?

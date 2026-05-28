@@ -1,0 +1,7 @@
+# personal-content-scan allowlist.
+# One file path per line whose personal references are intentional (docs about the
+# repo itself). Comments start with '#'. You can also put the marker
+# `personal-allow` on an individual line in any file to exempt just that line.
+#
+# README.md, PERSONAL_CONFIG.md, DEPERSONALIZATION_AUDIT.md, and the tools/ scanner
+# are already exempt by default.

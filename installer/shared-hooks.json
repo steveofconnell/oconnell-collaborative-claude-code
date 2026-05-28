@@ -1,0 +1,53 @@
+{
+  "_comment": "Shared hook entries distributed to all collaborators. setup.sh merges these into each person's personal ~/.claude/settings.json additively and idempotently (see installer/merge-shared-hooks.py). Personal-only hooks (sounds, statusline) are NOT here — they stay in each user's settings.json. Paths use ~/.claude/hooks/, which every collaborator symlinks to their clone of this repo's hooks/.",
+  "PreToolUse": [
+    {
+      "matcher": "Edit|Write|MultiEdit",
+      "hooks": [
+        { "type": "command", "command": "~/.claude/hooks/protect-rawdata.sh" },
+        { "type": "command", "command": "~/.claude/hooks/block-banned-phrases.sh" }
+      ]
+    },
+    {
+      "matcher": "Bash",
+      "hooks": [
+        { "type": "command", "command": "python3 ~/.claude/hooks/protect-pii-github.py" }
+      ]
+    }
+  ],
+  "PreCompact": [
+    {
+      "hooks": [
+        { "type": "command", "command": "python3 ~/.claude/hooks/pre-compact.py" }
+      ]
+    }
+  ],
+  "PostToolUse": [
+    {
+      "matcher": "Bash|Edit|Write",
+      "hooks": [
+        { "type": "command", "command": "python3 ~/.claude/hooks/context-monitor.py" }
+      ]
+    },
+    {
+      "matcher": "*",
+      "hooks": [
+        { "type": "command", "command": "~/.claude/hooks/session_tracker.sh beat" }
+      ]
+    }
+  ],
+  "SessionStart": [
+    {
+      "hooks": [
+        { "type": "command", "command": "~/.claude/hooks/session_tracker.sh open" }
+      ]
+    }
+  ],
+  "SessionEnd": [
+    {
+      "hooks": [
+        { "type": "command", "command": "~/.claude/hooks/session_tracker.sh close" }
+      ]
+    }
+  ]
+}

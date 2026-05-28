@@ -1,0 +1,23 @@
+#!/bin/bash
+# open-projects.config.sh — Per-project iTerm tab colors.
+#
+# Copy this file to ~/Dropbox/.claudeconfig/open-projects.config.sh
+# (drop the .example suffix), then edit the case statement below to
+# match your project directory names.
+#
+# Each entry returns "bg_r,bg_g,bg_b;fg_r,fg_g,fg_b" — RGB 0-255 each.
+# Background should be dark, foreground bright, for legibility.
+# Project names match basename of the project directory (case-sensitive).
+# Projects with no entry get default iTerm colors.
+
+get_tab_color() {
+    case "$1" in
+        # Replace these with your own projects:
+        AdminTasks)           echo "50,15,15;245,220,210" ;;   # dark red bg, warm cream fg
+        MyResearchProject)    echo "15,30,50;220,235,250" ;;   # dark blue bg, sky fg
+        AnotherProject)       echo "15,40,20;220,250,230" ;;   # dark green bg, sage fg
+        TeachingPrep)         echo "10,40,40;220,250,250" ;;   # dark teal bg, cyan fg
+        Writing)              echo "35,15,45;240,225,250" ;;   # dark purple bg, lavender fg
+        *)                    echo "" ;;                        # default: no override
+    esac
+}
