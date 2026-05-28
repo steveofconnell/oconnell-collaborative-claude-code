@@ -8,6 +8,12 @@ Write a referee report on a manuscript submitted for peer review, in the user's 
 
 This is NOT the same as `/review-paper`, which reviews the user's OWN manuscripts for pre-submission quality. `/referee-paper` produces a report the user would submit to a journal editor as a referee.
 
+> **Make it yours.** The structure and standards below are a worked default. To match
+> your own reviewing voice, collect 5–10 of your past referee reports and ask Claude to
+> extract your structure, comment style, and standards into a replacement for the
+> "Reviewing Style" section, saved in your personal config. See PERSONAL_CONFIG.md →
+> "Personalizing the shipped skills."
+
 ## Input
 $ARGUMENTS — path to the manuscript PDF/file. If not provided, check the current working directory for a manuscript PDF, or ask the user.
 

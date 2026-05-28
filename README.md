@@ -1,15 +1,17 @@
 # Claude Code for Academic Research
 
 > [!IMPORTANT]
-> **If you set this up before 2026-05-26, re-run the installer to activate the hooks.**
-> Earlier installs symlinked the hook *scripts* but never registered them in your
-> personal `settings.json`, so the shared hooks — including raw-data write
-> protection — were not actually firing. To fix:
+> **The shared history was cleaned and rewritten on 2026-05-28.** If you cloned before
+> then, a plain `git pull` will fail ("unrelated histories"). Run the one-time updater
+> below — it adopts the new history, clears any old content from your clone, and
+> re-registers the shared hooks (raw-data protection, the PII/secret push guard, and the
+> publish guard):
 > ```bash
-> cd ~/claude-research-config && git pull && bash setup.sh
+> cd ~/claude-research-config
+> git fetch origin && git checkout origin/main -- tools/update.sh && bash tools/update.sh
 > ```
-> This is safe to re-run: it only adds the missing hook entries, backs up your
-> `settings.json` first, and changes nothing else.
+> Safe and idempotent: it stashes any local changes first, and only touches this clone —
+> never your sync folder or personal config.
 
 A shared configuration for [Claude Code](https://claude.ai/code) tailored to collaborative academic research in economics. Provides rules, hooks, and session protocols that enforce data integrity, academic standards, and reproducible workflows.
 
@@ -85,9 +87,16 @@ There are three locations involved, and each owns a distinct kind of config:
 
 No `.claude/` directory, no per-project copies of these tools. Each collaborator's machine is set up once via `setup.sh` and stays that way.
 
-To pick up updates after the maintainer pushes new rules or skills:
+To pick up routine updates after the maintainer pushes new rules or skills:
 ```bash
 cd ~/claude-research-config && git pull && bash setup.sh
+```
+
+If `git pull` ever reports divergent or unrelated histories (e.g., after a history
+cleanup), run the updater instead — it re-syncs cleanly and clears old content from your
+clone:
+```bash
+git fetch origin && git checkout origin/main -- tools/update.sh && bash tools/update.sh
 ```
 
 Re-running `setup.sh` is idempotent — every step checks whether the work is already done.

@@ -82,6 +82,43 @@ The shared `rules/academic-writing-voice.md` is a generic style guide for applie
 
 This is one of the highest-value personal customizations.
 
+## Personalizing the Shipped Skills
+
+Several skills ship generic, with placeholders where the maintainer's own details used to be.
+Each runs out of the box but produces sharper, tailored output once you supply your particulars.
+The pattern is always the same: **the repo ships the mechanism; your particulars live in your
+personal config (sync folder), never in the repo** — where the publish guard (`tools/`) would
+block them anyway. Each item below is a short session you run once.
+
+### `/expense-folio` — your reimbursement profile
+Ships with placeholder cards, institution, and policies. To make it yours, write a short profile
+into your personal config containing: the reimbursement header block (name, department, employer),
+your card list (corp vs. personal, by last-4), your expense-archive folder path, and your
+institution's rules (per-diem day threshold, receipt minimum, required backups). Tell `/expense-folio`
+to use it, or paste it at the start of a folio session. Keep this in the sync folder — cards and
+employer details are personal.
+
+### `/verify-bib` — your library proxy
+Paywalled citation PDFs are fetched through your institution's library proxy. Set your proxy prefix
+(commonly `https://proxy.library.<institution>.edu/login?url=`) in your personal config; if none is
+set, the skill simply skips the proxy fallback.
+
+### `/referee-paper` — your reviewing voice
+Ships with a default report structure and standards. To match your own: collect 5–10 of your past
+referee reports and ask Claude — *"Extract my referee-report structure, comment style, and standards
+from these, and produce a rule I can save"* — then keep the result in your personal config and set
+your name in the signature block.
+
+### `/setup-project` — your author default
+New-project scaffolding asks for author name(s). Add your name to the identity section of your
+`<sync-folder>/CLAUDE.md` and the skill will default to it instead of prompting.
+
+### Already covered above
+- **Writing-voice profile** (used by `/review-writing` and the writing-reviewer agent) — see
+  "Writing Voice Profile."
+- **`/slides` calibration decks** — see "Slide Deck Examples."
+- **Calendar, institutional templates** — see "Calendar Check Rule" and "Institutional Templates."
+
 ## Cross-Device Sync — How It Works
 
 The pattern `setup.sh` puts in place is:
