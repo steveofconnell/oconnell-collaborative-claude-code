@@ -139,13 +139,30 @@ them on sight.
   start with the claim.
 - **Negative-first framing**: "X cannot do Y; Z can." Lead with what something *is* or
   *does*; subordinate the contrast.
-- **Metaphorical importance-labels**: don't tag a claim or variable with a "this carries the
-  weight" structural metaphor; say what it actually does in the argument.
+- **Metaphorical importance-labels**: don't tag a claim or variable with a structural
+  "this carries the weight" metaphor (the load-of-a-beam construction is the canonical
+  AI tell); say what the claim actually does in the argument.
+- **Fashionable metaphor-jargon**: don't reach for a trendy metaphor where the literal term
+  is clearer — name the thing directly rather than dressing it up in the metaphor of the
+  moment.
 - **Vague relational verbs**: avoid "tracks" for relationships — say what the relationship is
   (correlate with, predict, co-move with).
 - **Speculative counterfactuals** without evidence ("the dynamics would have been very
   different if…"). State what happened.
 - **Genuflecting disclaimers** about methodological choices. State the rationale and move on.
+- **Pre-emptive defensiveness (concern→rebuttal apparatus)**: do not build a passage whose
+  job is to raise an objection and then answer it — a subsection, paragraph, caveat, or
+  footnote laid out as concern→rebuttal ("One might worry that Y; however…," "this is by
+  design, not Z," cataloguing "what the design cannot rule out"). The defensiveness lives in
+  the architecture, not the word choice, so it survives even when every sentence is phrased
+  positively. The fix is not a better rebuttal — it is to not raise a non-live objection at
+  all. State what the design or analysis does, positively; address only the one alternative
+  that genuinely competes, where it bears; let the rest go unstated. The burden is on a
+  referee to raise an objection, not on the author to pre-litigate every one in advance.
+- **Em-dash overuse**: machine-generated prose leans on em dashes for asides and
+  appositives. Go easy on them — prefer a comma-bounded clause, parentheses, a colon (to
+  introduce an explanation or list), or splitting into two sentences. Ranges (pp. 12–15) and
+  quoted material are exempt.
 - **Reducing the agency of people studied** ("predisposes their residents"). People make
   choices; places do not predispose.
 - **Noticeable word repetition** in close proximity — if a distinctive word recurs in a
