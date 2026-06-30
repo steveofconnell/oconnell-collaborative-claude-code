@@ -11,6 +11,9 @@
 BANNED_PHRASES=(
     "load-bearing"
     "load bearing"
+    # Block the metaphorical "plumbing" (implementation/infrastructure). Literal
+    # uses (a water system) are rare in this prose; the metaphor is the target.
+    "\\bplumbing\\b"
     # Block the connection/configuration metaphor (verb forms only), e.g.
     # "wire up the hooks", "wired up", "wiring up", "wired together".
     # The NOUN is allowed: electrical ("the wiring", "a wire") and money

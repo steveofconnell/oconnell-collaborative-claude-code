@@ -33,6 +33,8 @@ SKILLS (slash commands):
   /email-triage     — Read-only inbox triage: categorize, surface actions, propose unsubscribes
   /simulate-results — Prospective mechanism audit: simulate all result combinations, interpret each, identify ex ante design gaps
   /visual-audit     — Visual layout audit of Beamer/Quarto slides: overflow, font consistency, box fatigue, spacing
+  /learn            — Distill the session's corrections/edits into a durable rule in the right global config file
+  /overnight-paper  — Unattended overnight loop that improves a whole project in an isolated git worktree
 
 AGENTS (fresh-context reviewers):
   Writing Reviewer      — Prose quality, AI patterns, voice, argument structure
