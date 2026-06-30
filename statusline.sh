@@ -4,8 +4,9 @@
 # Claude Code pipes a JSON object to this script's stdin on every render; the
 # script prints a single line shown at the bottom of the TUI. This one shows:
 #
-#   model  |  $cost  |  ctx NN%  |  5hr NN% (Xh Ym)  |  7d NN% (Xh Ym)
+#   dir  |  model  |  $cost  |  ctx NN%  |  5hr NN% (Xh Ym)  |  7d NN% (Xh Ym)
 #
+#   - dir   : the project/repo name (basename of the working directory)
 #   - model : the active model's display name
 #   - cost  : approximate cumulative spend this session (see rate note below)
 #   - ctx   : percentage of the context window used
@@ -19,6 +20,10 @@
 # statusLine command in settings.json at it. Requires `jq`.
 
 input=$(cat)
+
+# Project name: prefer the git repo name, else the basename of the working dir.
+proj=$(echo "$input" | jq -r '.workspace.repo.name // .workspace.current_dir // empty')
+[ -n "$proj" ] && proj=$(basename "$proj")
 
 model=$(echo "$input" | jq -r '.model.display_name // "Unknown model"')
 
@@ -79,4 +84,5 @@ else
 fi
 [ -n "$five_hr_part" ] && out="$out  |  $five_hr_part"
 [ -n "$seven_day_part" ] && out="$out  |  $seven_day_part"
+[ -n "$proj" ] && out="$proj  |  $out"
 printf "%s" "$out"
