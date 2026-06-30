@@ -27,9 +27,6 @@ settings.json
 # OAuth credentials — NEVER commit
 gmail-mcp/
 
-# Status line (references personal pricing estimates)
-statusline.sh
-
 # Calendar rule (contains personal/family email addresses and calendar IDs)
 rules/calendar-check.md
 

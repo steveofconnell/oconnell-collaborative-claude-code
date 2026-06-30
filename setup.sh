@@ -232,6 +232,34 @@ else
 fi
 echo ""
 
+# ---- 3c. status line (context % + usage limits) ----------------------------
+# Ships a status line showing model, session cost, context-window %, and the
+# rolling 5-hour / 7-day usage limits with reset ETAs. The script is symlinked
+# into ~/.claude/ (so git pull updates it); the statusLine entry that points at
+# it is set in the personal settings.json. set-statusline.py is non-destructive:
+# it leaves a status line you've customized yourself untouched.
+echo "----- Step 3c/8: status line ---------------------------------"
+STATUSLINE_SRC="$REPO_DIR/statusline.sh"
+STATUSLINE_DST="$CLAUDE_DIR/statusline.sh"
+if [ -f "$STATUSLINE_SRC" ]; then
+    if [ -L "$STATUSLINE_DST" ] && [ "$(readlink "$STATUSLINE_DST")" = "$STATUSLINE_SRC" ]; then
+        echo "  statusline.sh already linked"
+    else
+        rm -f "$STATUSLINE_DST"; ln -s "$STATUSLINE_SRC" "$STATUSLINE_DST"
+        echo "  statusline.sh -> $STATUSLINE_SRC"
+    fi
+    if command -v python3 &>/dev/null; then
+        python3 "$REPO_DIR/installer/set-statusline.py" "$CLAUDE_DIR/settings.json" \
+            || echo "  WARNING: status line wiring failed; settings.json left as-is."
+    else
+        echo "  WARNING: python3 not found — status line not wired into settings.json."
+    fi
+    if ! command -v jq &>/dev/null; then
+        echo "  NOTE: the status line needs 'jq' (brew install jq) to render."
+    fi
+fi
+echo ""
+
 # ---- 4. Homebrew ------------------------------------------------------------
 echo "----- Step 4/8: Homebrew -------------------------------------"
 if command -v brew &>/dev/null; then

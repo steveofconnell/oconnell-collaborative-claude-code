@@ -25,6 +25,7 @@ A shared configuration for [Claude Code](https://claude.ai/code) tailored to col
 | `skills/` | Slash commands — `/start` (session startup), `/close` (handoff document), `/review-paper` (simulated referee report), `/slides` (beamer decks), `/verify-bib` (citation integrity check), `/figurenotes` (table/figure notes), `/qa-loop` (adversarial critic-fixer), and others |
 | `agents/` | Fresh-context reviewer agents — writing quality review, methodology audit |
 | `templates/` | Reusable institutional templates (IRB submissions, etc.) |
+| `statusline.sh` | Status line showing the model, session cost, context-window %, and the rolling 5-hour / 7-day usage limits with reset ETAs (needs `jq`) |
 
 ## Collaborator Setup
 
@@ -52,6 +53,7 @@ claude
 - Installs **iTerm2**. Required — the multi-project launcher uses iTerm2 AppleScript to set per-project background colors. Native Terminal.app does not support this.
 - Installs **Rectangle** and imports a default keybinding set for window snapping.
 - Installs the **iTerm2 "Claude" Dynamic Profile** and tab-switching shortcuts (Option+Cmd+Left/Right).
+- Installs a **status line** showing the model, session cost, context-window %, and the rolling 5-hour / 7-day usage limits with reset ETAs. It only writes the `statusLine` entry if you don't already have one — a status line you've set yourself is left alone. (Needs `jq`: `brew install jq`.)
 - Installs `open-projects.sh` into your sync folder, adds an `open-projects` shell alias, and seeds an example tab-color config.
 - Symlinks the shared `rules/`, `hooks/`, `skills/`, `agents/` from the cloned repo into `~/.claude/`, so `git pull` updates them.
 
