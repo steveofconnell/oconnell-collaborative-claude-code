@@ -19,7 +19,7 @@ A shared configuration for [Claude Code](https://claude.ai/code) tailored to col
 
 | Directory | Purpose |
 |-----------|---------|
-| `rules/` | Behavioral rules auto-loaded by Claude Code — academic integrity, data protection, a **generic** applied-econ writing-style guide (plus a template for building your own voice profile), project structure, data pipeline conventions, script architecture guardrails, task management |
+| `rules/` | Behavioral rules auto-loaded by Claude Code — academic integrity, data protection, a **generic** applied-econ writing-style guide (plus a template for building your own voice profile), specification &amp; sample integrity (no undisclosed spec search or sample manipulation), fabrication-cleanup sweeps, project structure, data pipeline conventions, script architecture guardrails, task management |
 | `hooks/` | Lifecycle hook scripts — blocks writes to raw data directories, monitors context usage, preserves state before context compression, and blocks `git push` of PII/secrets to non-Overleaf remotes |
 | `tools/` | Publish guard — a personal-content scanner and `pre-push` hook that block your identity, institution, and project names from reaching the shared repo (activated by `setup.sh` via `core.hooksPath`) |
 | `skills/` | Slash commands — `/start` (session startup), `/close` (handoff document), `/review-paper` (simulated referee report), `/slides` (beamer decks), `/verify-bib` (citation integrity check), `/figurenotes` (table/figure notes), `/qa-loop` (adversarial critic-fixer), and others |
