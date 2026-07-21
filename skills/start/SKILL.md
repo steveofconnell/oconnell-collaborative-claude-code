@@ -66,6 +66,18 @@ To apply this: scan the `Author:` line of each handoff starting from the most re
 
 Read the selected handoffs and briefly summarize each: what was done, by whom, and when. Present them in reverse chronological order (most recent first). **Always include who authored each handoff** (the `Author:` line) — this is essential in collaborative projects where multiple people work in the same directory. If any handoff was written by someone other than the current user, flag this prominently (e.g., "Session on [date] was run by [Name]"). If fewer than three handoffs exist, read whatever is available.
 
+### Handoffs addressed to you by a collaborator — read-acknowledgment (persist until read)
+
+If this is a shared collaboration folder, the recent-window logic above is not enough for handoffs a **collaborator wrote to you**: a directive left more than a couple of days ago would silently drop off. So, in addition to the window above, read **every** handoff whose `Author:` line is *someone other than you* and that does **not** yet carry a `READ BY <YOU> (CLAUDE) on <date>` stamp — **regardless of age**. These persist until acknowledged. Summarize and act on each, then append to the end of that file, on its own line:
+
+```
+
+---
+READ BY <YOUR NAME> (CLAUDE) on <YYYY-MM-DD>
+```
+
+The stamp is a **delivery receipt** — it means you have *seen* the handoff, not that the task is done (task status lives in the TODO). One stamp per handoff; do not re-stamp on later sessions. Handoffs dated before the protocol was adopted in this project are grandfathered (do not stamp the back-catalogue). Symmetrically, when opening a project where **you** have left handoffs for a collaborator, surface any of yours that still lack the collaborator's `READ BY` stamp as *not yet read — still pending delivery*; do not stamp your own handoffs. See the `collaborator-handoff-acknowledgment` rule.
+
 ## Step 5: Read Memory Index
 Read `<project>/MEMORY.md` if it exists. Scan the index for any **feedback-type memories that reference session behavior** (e.g., entries mentioning "session," "startup," "each session," "open with"). For each such entry, follow the link and read the full memory file **before composing any startup output**. These memories contain behavioral directives that modify the startup sequence itself — they are not background context. Execute their instructions as part of the startup. Then note any other relevant context for the current session.
 
