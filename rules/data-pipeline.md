@@ -50,3 +50,37 @@ When a script uses a package not already listed in `README_replication.md` softw
 4. **State what you are doing before writing imputation or correction code.** Before writing any line that modifies data values, state: (a) which variable is being changed, (b) which rows are affected (the condition), (c) whether those rows are guaranteed to be missing, and (d) what the new value will be. If you cannot answer all four, do not write the code.
 
 5. **Clean-looking output from messy data is a red flag.** If a dataset has many missing values before processing and none afterward, verify that each imputation was applied only to missing values and that no existing values were silently overwritten.
+
+## Logs and machine output must be genuine — never hand-assemble a log
+
+A log or run transcript (Stata `.log`, R/Python console output, build log, estimation output, "validation output" file, any artifact that represents "what the computer did when this ran") is a **computer-written record of an actual execution**. It is never something you author, assemble, or curate by hand.
+
+**This section exists because of a documented failure.** A "validation output" file meant to show a single run of a script had been hand-assembled from excerpts of more than one run, with a hand-written header. The stitched pieces were internally inconsistent (a subgroup table reported more observations than the full-sample table), which read as an error and cost a round of investigation — the numbers were actually correct; the file was the problem. A genuine single-run log would never have looked that way.
+
+**Absolute rules:**
+
+1. **Never hand-assemble, stitch, splice, reorder, retype, or fabricate a log.** Do not combine output from different runs into one "log." Do not paste a hand-written narration and label it a log. Do not edit values, counts, or results inside a log.
+2. **To produce a log, run the code and capture the real output.** If you need a log/validation file, actually execute the script (with `log using`, or by redirecting console output) and use what the machine writes, start to finish, from one run.
+3. **A log must correspond to exactly one real execution of the exact artifact shipped.** If the code changes, re-run it; do not patch the old log to match.
+4. **The only permitted post-processing of a genuine log is sanitization that removes local absolute paths or secrets** (e.g., replacing `/Users/<name>/...` with a `<root>` placeholder), and, if length requires it, keeping a **contiguous** genuine excerpt while stating that it is an excerpt. Never present a non-contiguous stitch as a run.
+5. **If a real log cannot be produced** (no license, no data, environment missing), say so and hand the user an empty/placeholder with that stated — never a fabricated one.
+
+## Never write deliberately-wrong or test values into real data
+
+Never write a value you know to be wrong — a test string, a dummy number, a
+deliberate blank, a "does this round-trip" placeholder — into a real dataset, a
+live production sheet, a database, or any store that feeds analysis, **even to
+verify that software behaves correctly**. Verifying app/pipeline behavior is not a
+license to pollute the data.
+
+- Verify on a **throwaway copy**, a scratch row/table you fully control and delete,
+  a local fixture, a staging store, or by **code inspection** — never by writing
+  known-wrong values into the real data.
+- This is strongest for **shared/live data others are actively using** (a
+  collaborator's review sheet, a production DB): a test write there both corrupts a
+  record and disrupts the other person's work.
+- If the only "verification" available would require a bad write, say so and fall
+  back to the code trace; do not do the write.
+
+This is the sibling of the genuine-logs rule above: machine output is captured from
+real runs, and real data carries only real values.

@@ -14,6 +14,7 @@ Every project has a single `.workspace/TODO.md`. This is the canonical source of
 ## Pending
 
 - [ ] Task description — added YYYY-MM-DD
+  - **Done when:** [the concrete, checkable artifact that will exist or be true when this is complete]
   - Optional context, blockers, or notes as indented sub-bullets
 - [ ] Another task — added YYYY-MM-DD — blocked on: [specific dependency]
 
@@ -25,6 +26,7 @@ Every project has a single `.workspace/TODO.md`. This is the canonical source of
 Rules:
 - One line per task. Sub-bullets for context only.
 - Every task gets an `added` date.
+- **Every task carries a `Done when:` sub-bullet** naming the concrete, checkable artifact that proves completion — a file at a path, a ledger row updated, a value produced, a document sent, a state reached. This turns "is it done?" from a memory judgment into a mechanical check: the reconciliation sweep (and any human) verifies the artifact exists rather than recalling whether the work happened. If a task genuinely has no external artifact (a pure decision or conversation), state the observable outcome instead. Skip only for throwaway one-liners.
 - Blocked tasks state their blocker inline (see dependency rules below).
 - Completed tasks move to `## Completed` with a `done` date.
 
@@ -32,10 +34,12 @@ Rules:
 
 **Adding tasks:**
 - When a to-do surfaces during a session (user states it, or it's a clear next step from work just done), write it to `.workspace/TODO.md` immediately. Do not defer to handoffs, memory, or conversation notes.
+- Give each new task its `Done when:` acceptance criterion **at creation** (see Format), not at close. Naming the completion artifact when you write the task is what makes later reconciliation a check instead of a guess.
 - If `.workspace/TODO.md` doesn't exist yet, create it (and `.workspace/` if needed).
 
 **Completing tasks:**
 - When the user says something is done (explicitly or by completing the work), update `.workspace/TODO.md` right then — move the item to `## Completed` with the done date. Do not wait for session close.
+- **Same-action rule (the primary defense).** The tool call (or batch) that produces a task's deliverable and the edit that checks its box are ONE action, not two. Do not move on to the next task until the finished one's box is checked. This exists because the recurring failure is a task done quickly, attention moving to the next thing, and the box never ticked — the fix is to catch completion at the moment it happens, not to reconstruct it at close. Close-time reconciliation (below) is a backstop, not the primary mechanism. A `Done when:` artifact that now exists is the signal to check the box.
 
 **Dropping tasks:**
 - If the user says to drop or cancel a task, delete it from the file entirely. No "cancelled" status — if it's not worth doing, it's not worth tracking.
@@ -50,7 +54,7 @@ Rules:
 
 ### Cleanup
 
-Completed items accumulate as an audit trail. Prune items older than 30 days from the `## Completed` section to keep the file readable. When pruning, do it silently — no need to confirm each deletion.
+Completed items are a permanent audit trail and are **never deleted**. Do not remove a completed item from the record. To keep the active `.workspace/TODO.md` readable, completed items older than 30 days **may be MOVED (not deleted)**, verbatim, to a per-project archive file `.workspace/TODO_archive.md` (create it if it does not exist, mirroring the `## Completed` format). The archive grows without bound, and that is intended. Never delete completed items from either file. Moving to the archive is optional housekeeping, not required; if in doubt, leave completed items in `TODO.md`.
 
 ## Dependency-aware ordering
 

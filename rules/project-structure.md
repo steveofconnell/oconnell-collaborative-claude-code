@@ -12,6 +12,9 @@ The organizing principles are: **self-evidence** (filenames, variable names, and
 ## `.workspace/` subdirectory structure
 `memory/` (project memory files), `handoffs/` (session handoff documents), `plans/` (implementation plans), `scratch/` (exploratory scripts, intermediate data, one-off outputs), `reference/` (source PDFs, text extractions, codebooks), `notes/` (working prose: memos, outlines, lit notes, email drafts), `logs/` (pipeline run logs, build logs). `TODO.md` and `SESSION_LOG.md` stay at the `.workspace/` root for quick access.
 
+## Scripts that produce manuscript-cited numbers
+Scripts whose output is cited in manuscript body text — inline statistics like "0.20 SD", "35 percent", magnitudes, confidence intervals, anything readers see in prose, footnotes, or appendix text rather than in auto-generated tables or figures — must live in the analysis tree, never in `.workspace/`. Create a clearly-named subfolder for these: e.g., `4code/bodyTextAnalyses/` for the standard layout, or `5analysis/bodyTextAnalyses/` for projects whose analysis tree starts at a different number. The reason: `.workspace/` is the catch-all for working drafts and exploratory output, but if a number reaches the manuscript, the script producing it is part of the reproducibility chain and belongs in the durable analysis tree. A script that started as `scratch_*.R` in `.workspace/scratch/` is fine while exploratory, but once any number it produces is cited in print, move it to the `bodyTextAnalyses/` folder and update the manuscript's `% Source:` comment to the new path.
+
 ## File and folder naming
 - No spaces in file or folder names. Use underscores.
 - Raw data and source PDFs go in `1rawdata/` (with descriptive subfolder), not `.workspace/`.
