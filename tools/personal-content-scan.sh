@@ -53,7 +53,24 @@ extra_allow=""
 allow_paths="$default_allow_paths"
 [ -n "$extra_allow" ] && allow_paths="$allow_paths|$extra_allow"
 
+# What gets scanned: every tracked file, PLUS every untracked file git does not
+# ignore — that is, everything `git add -A` would publish.
+#
+# Scanning only `git ls-files` was a hole big enough to drive the whole failure
+# through: new rules and hooks are written first and staged later, so a scan run
+# in between reported "clean" on a working tree in which the maintainer's
+# institution appeared three times. The guard was one `git add` away from
+# passing on a real leak. Untracked-but-not-ignored is the right set because
+# gitignored files (your private CLAUDE.md, calendar rule, casebook) are
+# *supposed* to hold personal content and must not be flagged.
+untracked_file="$(mktemp)"
+all_file="$(mktemp)"
+trap 'rm -f "$untracked_file" "$all_file"' EXIT
+git ls-files --others --exclude-standard > "$untracked_file" 2>/dev/null || :
+{ git ls-files; cat "$untracked_file"; } | sort -u > "$all_file"
+
 hits=0
+untracked_hits=0
 while IFS= read -r f; do
   [ -f "$f" ] || continue
   case "$f" in
@@ -61,6 +78,12 @@ while IFS= read -r f; do
   esac
   # skip allowlisted paths
   printf '%s\n' "$f" | grep -qE "^($allow_paths)$" && continue
+  # Label untracked hits: they cannot leak via THIS push, but they are the ones
+  # about to be staged, and they are the ones the old scanner could not see.
+  tag=""
+  if grep -qxF "$f" "$untracked_file" 2>/dev/null; then
+    tag=" [untracked]"
+  fi
   for p in "${PATTERNS[@]}"; do
     while IFS= read -r line; do
       [ -z "$line" ] && continue
@@ -68,17 +91,24 @@ while IFS= read -r f; do
       printf '%s' "$line" | grep -qi 'personal-allow' && continue
       if [ $hits -eq 0 ]; then
         echo ""
-        echo "X personal-content-scan: blocked — personal content found in tracked files:"
+        echo "X personal-content-scan: blocked — personal content found:"
         echo ""
       fi
-      echo "  $f: $line"
+      echo "  $f$tag: $line"
       hits=$((hits+1))
+      [ -n "$tag" ] && untracked_hits=$((untracked_hits+1))
     done < <(grep -inE "$p" "$f" 2>/dev/null)
   done
-done < <(git ls-files)
+done < "$all_file"
 
 if [ "$hits" -gt 0 ]; then
   echo ""
+  if [ "$untracked_hits" -gt 0 ]; then
+    echo "  $untracked_hits of these are in [untracked] files. They are not in this push,"
+    echo "  but they are in your working tree and will be published the moment you"
+    echo "  stage them. Fix them now, not after the next 'git add'."
+    echo ""
+  fi
   echo "  This repo is meant to be generic. Move personal content to your private"
   echo "  sync folder, or allowlist a genuine reference (tools/personal-content-allow.txt"
   echo "  or a 'personal-allow' marker on the line). Bypass (not recommended): git push --no-verify"
@@ -86,5 +116,7 @@ if [ "$hits" -gt 0 ]; then
   exit 1
 fi
 
-echo "personal-content-scan: clean."
+n_scanned=$(wc -l < "$all_file" | tr -d ' ')
+n_untracked=$(wc -l < "$untracked_file" | tr -d ' ')
+echo "personal-content-scan: clean ($n_scanned files scanned, $n_untracked untracked)."
 exit 0
