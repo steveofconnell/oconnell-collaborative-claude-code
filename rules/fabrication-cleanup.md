@@ -1,7 +1,3 @@
----
-description: "When a fabrication or misrepresentation is found in any artifact (CV, proposal, manuscript, dataset), sweep the whole artifact and its siblings — never fix only the first instance"
----
-
 # Fabrication and Misrepresentation Cleanup — Exhaustive Sweep
 
 Applies to: any document, dataset, CV, proposal, application, manuscript, or
@@ -17,12 +13,10 @@ share its lineage) for every other instance of the same class of problem. Never
 fix only the instance that happened to surface first, and never flag problems
 one at a time as they catch the eye.
 
-This rule exists because of a documented failure: a session removed three
-fabricated entries from a CV but left a fourth misrepresentation in place, in a
-different section and a different form — a sentence in a prose summary rather
-than a list entry. The incomplete cleanup surfaced later, one item at a time,
-and cost the user repeated rounds of review. Partial cleanup is worse than none:
-it creates false confidence that the artifact is clean.
+Partial cleanup is worse than none: it creates false confidence that the artifact
+is clean. Origin (a CV where three fabricated entries were removed and a fourth
+misrepresentation was left standing in prose): `casebook/incidents.md` →
+fabrication-cleanup.
 
 ## Protocol
 

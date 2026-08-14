@@ -1,6 +1,14 @@
 ---
 description: "Rules for data transcription from visual sources and digitization project infrastructure — prevents fabrication of data values"
-globs: ["*.csv", "*.xlsx", "*.xls", "*.tsv", "*.R", "*.py", "*.do", "*rawdata*", "*processing*"]
+paths:
+  - "**/*.{csv,tsv,xlsx,xls,dta,rds,RData,sav,por,parquet}"
+  - "**/*.{R,r,Rmd,qmd}"
+  - "**/*.{py,ipynb}"
+  - "**/*.{do,ado}"
+  - "**/1rawdata/**"
+  - "**/2processing/**"
+  - "**/2dataProcessing/**"
+  - "**/3data/**"
 ---
 
 # Data Integrity: Transcription and Digitization

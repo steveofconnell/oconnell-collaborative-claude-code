@@ -22,6 +22,13 @@ BANNED_PHRASES=(
     "\\bwiring up\\b"
     "\\bwir(e|es|ed) together\\b"
     "\\bwiring together\\b"
+    # "gate" / "gated" — hard-blocked 2026-07-24 at the user's direction (was
+    # rule-only since 2026-06-11). Blunt by design: catches the metaphor
+    # ("gated on X", "the gate is open") at the cost of also blocking literal
+    # uses (a physical farm/field gate, a Qualtrics routing gate, "gated
+    # community"). Request a softening if a genuine literal use is blocked.
+    "\\bgate\\b"
+    "\\bgated\\b"
 )
 
 INPUT=$(cat)
@@ -48,6 +55,19 @@ print('\n'.join(parts))
 if [ -z "$NEW_CONTENT" ]; then
     exit 0
 fi
+
+# EXEMPTION: the rule-definition files themselves. A file whose job is to DEFINE
+# the banned vocabulary must be able to contain it — otherwise academic-writing-
+# voice.md and its casebook cannot be edited at all (self-referential deadlock,
+# hit 2026-08-10). Scoped as narrowly as possible: only .md files living under a
+# rules/ directory. These are meta-documents about vocabulary, not the
+# user-attributed prose this hook exists to protect. Everything else, including
+# every manuscript, memo, email draft and slide, is still checked.
+case "$FILE_PATH" in
+    */rules/*.md|*/rules/*/*.md)
+        exit 0
+        ;;
+esac
 
 # Scope: only check prose-bearing extensions. Code/data files exempt.
 case "$FILE_PATH" in

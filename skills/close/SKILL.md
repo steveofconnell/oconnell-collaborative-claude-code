@@ -10,21 +10,25 @@ Finalize the current session. Follow these steps:
 If only startup checks ran and no tasks were actioned, skip the handoff and memory updates. Just acknowledge the close.
 
 ## Step 2: Reconcile TODO.md Against Session Work
-Read `<project>/.workspace/TODO.md` and sweep it against everything that happened in this session. This step exists because close sessions have historically failed to update TODO.md, causing completed or dropped tasks to resurface as pending in future sessions.
+Read `<project>/.workspace/TODO.md` and reconcile it against what actually happened. The most common close-time failure is a task that got **done quickly mid-session and never marked** — by the time you reach close it is no longer salient in the transcript, so a memory-based pass misses it. Therefore: **do NOT reconcile from recollection of the conversation. Reconcile from evidence** — the files, ledgers, and artifacts that now exist — in TWO passes.
 
-For each pending `- [ ]` item in TODO.md, assess its current status based on the full session context:
+### Pass A — reverse (work → items): the pass that catches the misses
+First build the list of every file you created or modified this session (the same list Step 3's handoff needs — build it now). For EACH artifact ask: "which pending TODO item does this satisfy or advance?" If an artifact completes an item, that item is **Done even if it never came up again after the work was finished**. This pass exists specifically to catch fast tasks that were completed and abandoned. Fold in non-file outcomes too (a decision reached, an external action taken, a question definitively answered).
 
-1. **Completed** — work was done this session that satisfies the task. Move it to `## Completed` with today's date (`done YYYY-MM-DD`). Do not ask for confirmation; if the session clearly resolved it, mark it done.
+### Pass B — forward (item → evidence): verify, don't recall
+For each pending `- [ ]` item, do not ask "did we discuss this?" — ask **"does its deliverable exist now?"** Check the actual evidence: is the named output file present, is the ledger row/table updated, does the script produce the cited value? Inspect it if cheap. An item is Done when its artifact exists, regardless of whether it was mentioned at close. If an item names no concrete deliverable, judge from the session but say so.
 
-2. **Dropped** — a decision was made this session (explicit or implicit) to not pursue this task. Delete it from the file entirely. No "cancelled" status — if it's not worth doing, it's not worth tracking.
+### Classify each pending item (cite the evidence)
+1. **Completed** — evidence shows the task is satisfied. Move it to `## Completed` with `done YYYY-MM-DD`, and **cite the proving artifact** (file path / ledger row / output) in the note. Do not ask for confirmation. Never mark done without pointing to what proves it.
+2. **Dropped** — a decision (explicit or implicit) was made not to pursue it. Delete it entirely. No "cancelled" status.
+3. **Reformulated** — redefined / rescoped / renamed this session. Update in-place; add a sub-bullet if the change is significant.
+4. **Still pending** — no change. Confirm this by *absence of evidence*, not by absence of discussion.
 
-3. **Reformulated** — the task was redefined, scoped differently, or renamed during the session. Update the description in-place. If the reformulation is significant, add a note as an indented sub-bullet.
+### New tasks
+Scan the session for tasks that surfaced (follow-ups, deferred work, items born from work done) not yet in TODO.md. Add them under `## Pending` with today's date. Where possible give each a **`Done when:` sub-bullet naming the concrete artifact** that will prove completion — this makes the next close's sweep a mechanical check instead of a judgment call.
 
-4. **Still pending** — no change. Leave as-is.
-
-Also scan the session for any new tasks that surfaced (things decided to do later, follow-ups noted, items that emerged from work done) that are not yet in TODO.md. Add them under `## Pending` with today's date.
-
-After updating TODO.md, report the changes: how many items were marked done, dropped, reformulated, and added.
+### Report
+Report the reconciliation: N done (each with its cited evidence), N dropped, N reformulated, N added. **If Pass A surfaced any item that was done-but-unmarked, call it out explicitly** — that is the exact failure mode this step targets, and naming it confirms the sweep worked.
 
 ## Step 3: Write Handoff Document
 Create `HANDOFF_<YYYY-MM-DD>.txt` in `<project>/.workspace/handoffs/` with:

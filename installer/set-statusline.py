@@ -34,6 +34,44 @@ import time
 
 DEFAULT_COMMAND = "bash ~/.claude/statusline.sh"
 
+# The status line's "replied HH:MM (Xh Ym ago)" field reads a timestamp written by
+# this Stop hook. Without the hook the field is simply omitted, so installing the
+# status line without it silently ships a status line missing a column. It is wired
+# here rather than in installer/shared-hooks.json because it belongs to the status
+# line, which is a personal setting each user owns.
+STAMP_HOOK_COMMAND = "~/.claude/hooks/stamp-last-reply.sh"
+
+
+def ensure_stop_hook(settings):
+    """Additively register the last-reply stamp hook. Returns True if changed.
+
+    Non-destructive and idempotent: existing Stop hooks (e.g. a sound) are kept,
+    and re-running when the command is already present makes no change.
+    """
+    hooks = settings.setdefault("hooks", {})
+    if not isinstance(hooks, dict):
+        return False
+    stop = hooks.setdefault("Stop", [])
+    if not isinstance(stop, list):
+        return False
+
+    for group in stop:
+        if not isinstance(group, dict):
+            continue
+        for entry in group.get("hooks", []) or []:
+            if isinstance(entry, dict) and entry.get("command") == STAMP_HOOK_COMMAND:
+                return False  # already present
+
+    entry = {"type": "command", "command": STAMP_HOOK_COMMAND}
+    # Prefer appending to an existing unmatched group so we do not multiply groups.
+    for group in stop:
+        if isinstance(group, dict) and "matcher" not in group \
+                and isinstance(group.get("hooks"), list):
+            group["hooks"].append(entry)
+            return True
+    stop.append({"hooks": [entry]})
+    return True
+
 
 def main():
     if len(sys.argv) < 2 or len(sys.argv) > 3:
@@ -67,7 +105,13 @@ def main():
         return 0
 
     desired = {"type": "command", "command": command}
-    if existing == desired:
+    statusline_changed = existing != desired
+
+    # Ensure the Stop hook the "replied" field depends on. Done even when the
+    # status line itself is already current, so existing installs pick it up.
+    hook_changed = ensure_stop_hook(settings)
+
+    if not statusline_changed and not hook_changed:
         print("set-statusline: status line already configured; no changes.")
         return 0
 
@@ -85,7 +129,11 @@ def main():
     with open(tmp) as f:  # validate before replacing
         json.load(f)
     os.replace(tmp, settings_path)
-    print(f"set-statusline: set statusLine -> '{command}' in {settings_path}")
+    if statusline_changed:
+        print(f"set-statusline: set statusLine -> '{command}' in {settings_path}")
+    if hook_changed:
+        print(f"set-statusline: registered Stop hook -> '{STAMP_HOOK_COMMAND}' "
+              "(drives the status line's 'replied' field)")
     return 0
 
 

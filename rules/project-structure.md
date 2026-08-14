@@ -29,6 +29,14 @@ The pipeline should be shaped like a funnel: many source-specific read/clean scr
 ## Variable and dataset naming
 - Descriptive variable and dataset names. Never leave cryptic or indexed names (`var563`, `val6`, `hh`, `person`) — rename variables early in processing to be long and descriptive. Do not rely on variable labels as a substitute for clear names.
 
+## Disclose file placement, and leave no working files behind
+The user works without a file explorer open, so an unreported file placement is an organizational decision made silently. Two obligations follow, and they bind hardest in long sessions with many file operations, which is exactly when they get dropped.
+
+- **Report every file created, moved, renamed, or deleted, by full path, in the reply that does it.** One line per file. Not a count, not "various supporting files", not a note that "outputs were written". If a turn creates six files in four directories, the reply lists six paths.
+- **No orphan working files.** A temp, scratch, or intermediate file written to get through a task is either deleted before the session ends or given a documented home and a descriptive name. Before session close, list every working file the session created and state for each one: deleted, promoted to a permanent location, or left in place deliberately and why.
+- **Never write a script whose only purpose is to patch another script's output.** Correct the upstream script and rerun it (Learned Preferences, 2026-04-18). A wrapper, shim, or fixup script is not a fix, it is a second thing to maintain.
+- **Circular dependencies between scripts are a defect to correct on the spot,** not a condition to leave in the project. If script A consumes B's output while B consumes A's, say so and restructure, rather than adding a third script to break the cycle.
+
 ## Self-containment and raw data documentation
 - Projects are self-contained. Never copy prepared datasets from another project into a new one. All data preparation must be reproducible from raw data within the project.
 - Every file in `1rawdata/` must have source documentation: a `source.txt` note, a `documentation/` subfolder, or equivalent. No raw data file should exist without a record of where it came from, when it was obtained, and any access conditions. When downloading or receiving data, create this documentation immediately. Consider making raw files read-only to prevent accidental modification.

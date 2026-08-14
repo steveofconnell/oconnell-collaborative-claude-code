@@ -1,244 +1,111 @@
 ---
-description: "Full session startup: config discovery, handoff check, integrity acknowledgment, pending TODOs"
+description: "Full session startup: handoff check, integrity acknowledgment, pending TODOs, project-specific startup"
 ---
 
 # Session Startup
 
-Execute the following steps in order. Do not prompt for input until all steps are complete.
+Work through these in order, then ask what to work on. Read only what the briefing
+actually uses — this skill runs at the top of every session, so anything read here
+is paid for on every session in every project.
 
-## Step 1: Config Discovery Report
-Print a brief checklist showing which of the following files were found or not found:
-- `~/.claude/CLAUDE.md` (symlink → global config) — verify symlink resolves
-- `<project>/CLAUDE.md` (project-level config)
-- `<project>/MEMORY.md` (project memory index)
-- Any `HANDOFF_*.txt` files in `<project>/.workspace/handoffs/`
+## Step 1: Config check (report from context, do not go looking)
 
-Use the Read and Glob tools (not Bash) for all checks. Bash commands that reference paths outside the project directory trigger permission prompts.
+The global config, the project `CLAUDE.md`, and every always-on rule are already in
+context by the time this skill runs. Say so in one line and name anything that looks
+wrong (a rule that should have loaded and did not, a contradiction between two
+files). Do **not** issue Read or Glob calls to confirm files exist — that costs
+permission prompts and confirms something already visible.
 
-## Step 2: Academic Integrity Acknowledgment
-Print: "Academic integrity directives loaded — all written content will be held to peer-review standards for originality, citation accuracy, and intellectual rigor."
+Path-scoped rules (those with `paths:` frontmatter — the language, data and
+manuscript rules) correctly do **not** load at startup. Their absence is not a fault
+and does not need reporting.
 
-## Step 3: Capabilities Summary
-Print a compact reference of available custom tools. Use this exact format (update if new items are added):
+## Step 2: Academic integrity acknowledgment
 
-```
-SKILLS (slash commands):
-  /start            — Full session startup sequence
-  /close            — Write handoff + persistent session log, update memory
-  /review-paper     — Simulated referee report (writing + methodology agents)
-  /review-plan      — Stress-test a plan with structured expert critique
-  /prompt           — Format rough/dictated text into structured prompt (light/standard/deep)
-  /setup-project    — Initialize new research project with standard folder structure
-  /qa-loop          — Adversarial critic-fixer loop (iterates until clean or max rounds)
-  /email-triage     — Read-only inbox triage: categorize, surface actions, propose unsubscribes
-  /simulate-results — Prospective mechanism audit: simulate all result combinations, interpret each, identify ex ante design gaps
-  /visual-audit     — Visual layout audit of Beamer/Quarto slides: overflow, font consistency, box fatigue, spacing
-  /learn            — Distill the session's corrections/edits into a durable rule in the right global config file
-  /overnight-paper  — Unattended overnight loop that improves a whole project in an isolated git worktree
+Print, verbatim:
 
-AGENTS (fresh-context reviewers):
-  Writing Reviewer      — Prose quality, AI patterns, voice, argument structure
-  Methodology Reviewer  — Causal claims, identification strategy, statistical practice
+> Academic integrity directives loaded — all written content will be held to
+> peer-review standards for originality, citation accuracy, and intellectual rigor.
 
-RULES (auto-loaded):
-  academic-integrity      — Citations, originality, attribution (always-on)
-  project-structure       — Folder structure, naming, documentation (always-on)
-  script-architecture     — Anti-proliferation guardrails, funnel principle (*.R, *.py, *.do)
-  academic-writing-voice  — Voice/style guide + writing preferences (*.tex, *.md, *.qmd, *.Rmd, *.txt)
-  data-integrity          — Transcription safety + digitization protocol (data files, rawdata/processing dirs)
+## Step 3: Handoffs
 
-HOOKS (automatic):
-  protect-rawdata         — Blocks writes to 1rawdata/ directories (PreToolUse)
-  pre-compact             — Saves active plan/task before context compression (PreCompact)
-  post-compact-restore    — Restores context after compression (SessionStart)
-  context-monitor         — Warns when approaching context limit (PostToolUse)
-```
+Skip this step entirely for projects whose `CLAUDE.md` says they do not use handoffs
+(a general-purpose admin workspace is a typical example).
 
-Do NOT scan `~/.claude/skills/`, `~/.claude/agents/`, or `~/.claude/rules/` — those paths are outside the project directory and trigger permission prompts. The list above is maintained manually; update it when adding new skills/agents/rules.
+Otherwise, list `<project>/.workspace/handoffs/HANDOFF_*.txt` by filename descending
+and read **three**, extending further back only if the user authored none of the
+three most recent — in that case read back to and including their most recent one,
+capped at ~10.
 
-## Step 4: Read Recent Handoffs
-List all `HANDOFF_*.txt` files in `<project>/.workspace/handoffs/` (sorted by filename descending). Determine how many to read using this rule:
+Summarize each in two or three lines, most recent first, and **always name the
+author**. Flag prominently any handoff written by someone else.
 
-- **Minimum: 3 handoffs** (the baseline for multi-session context).
-- **If the user's most recent handoff is older than the 3rd-most-recent file**, extend the window to include all handoffs from the user's most recent one through the present. This ensures the user sees everything that happened while they were away.
+Then apply `rules/collaborator-handoff-acknowledgment.md`:
+- **As recipient** — read every handoff addressed to you that lacks a `READ BY` stamp,
+  regardless of age, act on it, and append the stamp.
+- **As author** — raise any handoff you wrote that still lacks the recipient's stamp
+  as "not yet read by <name> — still pending delivery."
 
-To apply this: scan the `Author:` line of each handoff starting from the most recent. If the user authored one of the 3 most recent, read 3. If not, keep scanning backward until you find one the user authored, and read all handoffs from that one forward (inclusive). If no user-authored handoff is found, read all available handoffs (up to a reasonable cap of ~10).
+## Step 4: Memory index
 
-Read the selected handoffs and briefly summarize each: what was done, by whom, and when. Present them in reverse chronological order (most recent first). **Always include who authored each handoff** (the `Author:` line) — this is essential in collaborative projects where multiple people work in the same directory. If any handoff was written by someone other than the current user, flag this prominently (e.g., "Session on [date] was run by [Name]"). If fewer than three handoffs exist, read whatever is available.
+Read `<project>/MEMORY.md`. It is an index: one line per memory, and it should stay
+that way — if entries have grown into paragraphs, say so and offer to compress it.
 
-### Handoffs addressed to you by a collaborator — read-acknowledgment (persist until read)
+Scan for **feedback-type entries that modify session behavior** (mentioning "session",
+"startup", "each session", "open with"). Follow those links and read the full files
+**before composing any startup output** — they are directives that change this
+sequence, not background reading. Execute them.
 
-If this is a shared collaboration folder, the recent-window logic above is not enough for handoffs a **collaborator wrote to you**: a directive left more than a couple of days ago would silently drop off. So, in addition to the window above, read **every** handoff whose `Author:` line is *someone other than you* and that does **not** yet carry a `READ BY <YOU> (CLAUDE) on <date>` stamp — **regardless of age**. These persist until acknowledged. Summarize and act on each, then append to the end of that file, on its own line:
+Do not read other memory files at startup. They load on demand when their topic
+comes up.
 
-```
+## Step 5: AI use policy
 
----
-READ BY <YOUR NAME> (CLAUDE) on <YYYY-MM-DD>
-```
+Check for `aipolicy.txt` in the project root.
 
-The stamp is a **delivery receipt** — it means you have *seen* the handoff, not that the task is done (task status lives in the TODO). One stamp per handoff; do not re-stamp on later sessions. Handoffs dated before the protocol was adopted in this project are grandfathered (do not stamp the back-catalogue). Symmetrically, when opening a project where **you** have left handoffs for a collaborator, surface any of yours that still lack the collaborator's `READ BY` stamp as *not yet read — still pending delivery*; do not stamp your own handoffs. See the `collaborator-handoff-acknowledgment` rule.
+**If it exists:** do not print it. Confirm in one line — the policy is on file, its
+`Last modified` date, and who has signed the AGREED section. Read the body only if
+the session is about to do something the policy bears on (touching human-subjects
+data, adding a new tool, an IRB or DUA question) or if the user asks.
 
-## Step 5: Read Memory Index
-Read `<project>/MEMORY.md` if it exists. Scan the index for any **feedback-type memories that reference session behavior** (e.g., entries mentioning "session," "startup," "each session," "open with"). For each such entry, follow the link and read the full memory file **before composing any startup output**. These memories contain behavioral directives that modify the startup sequence itself — they are not background context. Execute their instructions as part of the startup. Then note any other relevant context for the current session.
+**If it does not exist:** copy `aipolicy_default.txt` from your config folder's
+`templates/` directory to the project root as `aipolicy.txt`, replacing
+`[Project Name]` with the project directory name, `[DATE]` with today's date, and
+`[Model family]` with the current model. Leave the `AGREED` entries as placeholders.
+(If you have no such template yet, say so and skip this step rather than inventing
+a policy.) Then print:
 
-## Step 6: AI Use Policy
-Check for `aipolicy.txt` in the project root directory.
+> Created default aipolicy.txt — review and customize for this project. Add your name
+> to the AGREED section, and have coauthors and RAs sign before they use AI tools on
+> this project.
 
-**If the file does not exist**, create it with this default content:
+## Step 6: Pending TODOs
 
-```
-AI USE POLICY — [Project Name]
+`.workspace/TODO.md` is the single source of within-project tasks. Never pull tasks
+from handoffs, memory, or email.
 
-1. HUMAN SUBJECTS DATA PROTECTION
+**Read the `## Pending` section only.** These files carry a permanent completed
+archive and per-item detail that the briefing does not use, so reading the whole file
+wastes a large amount of context every session. Use a targeted read or a Grep for the
+`## Pending` / `## Deferred` / `## Completed` boundaries rather than reading top to
+bottom.
 
-  No identifiable human subjects data may be entered into any AI tool. This
-  includes names, geographic coordinates, household or individual IDs,
-  contact information, photographs, voice recordings, and any combination
-  of variables that could permit re-identification.
+Surface **all** pending items, including ones assigned to someone else, showing any
+`**assigned:**` tag inline so the split between your plate and delegated work is
+visible. Honor the `## Deferred` convention: items there stay out of the briefing
+until their `surface:` date, at which point move them into `## Pending`.
 
-  De-identified and aggregate data (regression output, summary statistics,
-  codebooks, variable lists, anonymized datasets where re-identification
-  risk is negligible) may be used in AI-assisted work.
+Order by actionability per `rules/task-management.md` — unblocked first, blocked
+after, with each blocker named inline.
 
-  Data directories are assumed de-identified unless marked otherwise. Any
-  directory containing identifiable data must include a pii.txt file that
-  describes what is sensitive (e.g., "Contains GPS coordinates, respondent
-  names, household IDs"). The AI tool checks for this marker before reading
-  data files: if pii.txt is present, it will not read the data and will use
-  safe alternatives (see Section 2). If no pii.txt exists, the data is
-  treated as non-sensitive. Place pii.txt when setting up raw data
-  directories — it is a one-time step that protects the data in every
-  future session.
+## Step 7: Project-specific startup
 
-  Qualitative data (interview transcripts, open-ended survey responses,
-  case narratives) may not be entered into any AI tool unless (a) the text
-  has been reviewed for re-identification risk by a member of the research
-  team and (b) the project's IRB protocol explicitly permits AI-assisted
-  analysis of such data. In small-sample qualitative work, even redacted
-  transcripts may be identifying; err on the side of exclusion.
+Follow any additional startup directives in the project's `CLAUDE.md` (for example, a
+project might fetch an external to-do list or run `/email-triage`). If a step depends
+on an MCP server that is not connected, skip it silently unless the project says
+otherwise.
 
-2. SAFE PATTERNS FOR WORKING WITH PII-CONTAINING FILES
+## Step 8: Ready
 
-  When AI assistance is needed to write or debug code that processes files
-  containing identifiable data, use the following approaches to avoid
-  transmitting PII to the AI tool:
-
-    a. Read the codebook or data dictionary, not the data. If a codebook,
-       source.txt, or variable documentation exists, provide that instead
-       of the data file. Column names, types, and value descriptions are
-       sufficient to write processing code.
-
-    b. Read only the header row. Extracting the first line of a CSV or
-       the variable list from a Stata/R file gives the AI the structure
-       it needs with zero data records.
-
-    c. Describe the structure verbally. Stating "the file has columns
-       hhid, district, age, income, in long format by year" is enough
-       to write correct code without any data leaving your machine.
-
-    d. Use a de-identified extract. If the project has already produced
-       a cleaned dataset with identifiers stripped, the AI may read that
-       file. Confirm that the extract cannot be re-identified before
-       sharing.
-
-    e. Provide synthetic or fabricated example rows. A few made-up rows
-       that match the real schema allow the AI to test parsing logic
-       without exposure to real records.
-
-  The general principle: the AI needs to know the structure of the data
-  (column names, types, formats, relationships between files) but never
-  needs to see the actual values of identifying fields. When in doubt,
-  describe rather than show.
-
-3. IRB AND DATA USE AGREEMENT COMPLIANCE
-
-  Before using AI tools on any project involving human subjects data,
-  confirm that the project's IRB approval does not prohibit AI-assisted
-  analysis. If the protocol is silent on AI use, seek guidance from the
-  IRB or file an amendment before proceeding.
-
-  If the project operates under a data use agreement (DUA) with a partner
-  organization, review the DUA for restrictions on third-party data
-  processing. AI-assisted analysis may constitute third-party processing
-  even when data is not retained by the AI provider.
-
-4. PERMITTED USES
-
-  AI assistance (currently: Claude by Anthropic, via the Claude Code CLI
-  running locally) is used under direct supervision of the PI(s) for:
-
-    - Code writing, debugging, and refactoring (R, Stata, Python, LaTeX)
-    - Data processing pipeline construction and review
-    - Literature search and organization (all citations independently
-      verified before use)
-    - Drafting and editing prose (all text reviewed, substantively revised,
-      and approved by the author before submission or circulation)
-    - Administrative tasks (correspondence drafts, formatting, scheduling)
-
-5. PROHIBITED USES
-
-  AI tools are not used to:
-
-    - Generate, fabricate, or interpolate data, results, or statistical
-      output
-    - Produce final manuscript text without human review and substantive
-      revision by the author(s)
-    - Make independent analytical, methodological, or interpretive
-      decisions
-    - Process identifiable human subjects data (see Section 1)
-    - Replace the researcher's intellectual contribution or judgment
-
-6. AUTHORSHIP AND INTEGRITY
-
-  All written output attributed to the author(s) has been reviewed,
-  revised, and approved by the author(s). The author(s) take full
-  responsibility for the content, accuracy, and integrity of all work
-  product. AI tools are not authors and receive no attribution.
-
-  All citations have been verified against primary sources. No AI-
-  generated or unverifiable references appear in any output.
-
-7. DISCLOSURE
-
-  AI use will be disclosed in whatever form the target journal, funder,
-  or institution requires. The signatories below have reviewed the
-  relevant policies and accept responsibility for compliance.
-
-8. TOOLS AND ENVIRONMENT
-
-  Tool:      Claude (Anthropic) via Claude Code CLI
-  Interface: Local terminal (not shared web sessions)
-  Data flow: Prompts sent to Anthropic API; Anthropic does not train on
-             API inputs per its data retention policy (verify current
-             terms at anthropic.com/policies)
-  Models:    [Model family, e.g. Claude Opus 4 / Sonnet 4]
-
-  This section should be updated when tools or interfaces change.
-
-9. SCOPE
-
-  This policy applies to all members of the research team, including
-  coauthors, research assistants, and students working on the project.
-  Anyone using AI tools on this project must read this policy and add
-  their name below before doing so.
-
-Last modified: [DATE]
-
-AGREED (by adding their name below, each team member confirms they have
-read this policy and will comply with all provisions):
-
-  - [Full Name], [DATE]
-```
-
-Replace `[Project Name]` with the project directory name, `[DATE]` with today's date, and `[Model family]` with the current model (e.g., "Claude Opus 4 / Sonnet 4"). Leave `AGREED` entries as placeholders — prompt the user to add their name and have coauthors/RAs review and sign. After creating the file, print: "Created default aipolicy.txt — review and customize for this project. Add your name to the AGREED section, and have coauthors and RAs sign before they use AI tools on this project."
-
-**If the file exists**, read it and print it under the heading **AI Use Policy** so the policy is reiterated at the start of every session. Keep the printout compact — print the full text as-is, no commentary.
-
-## Step 7: Check Pending TODOs
-Read `.workspace/TODO.md` if it exists. Surface **all** pending items (unchecked `- [ ]` entries) to the user as part of the startup briefing — do not filter or omit items because they are assigned to someone else. Show the `**assigned:**` tag inline for every item so the user can see the full project status and immediately identify what is on their plate versus delegated. This is the single source of within-project tasks — do not pull tasks from handoffs, memory, or email.
-
-## Step 8: Project-Specific Startup
-After completing the above, check the project's `CLAUDE.md` for any additional startup behavior (e.g., a project may define a startup step that fetches an external to-do list). Execute those directives.
-
-## Step 9: Ready
-Ask the user what they want to work on, offering context from the handoff and any time-sensitive items as a starting point.
+Ask what to work on. Lead with anything time-sensitive from the TODO and, where
+relevant, the handoff.

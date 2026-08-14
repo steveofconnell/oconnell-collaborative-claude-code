@@ -13,10 +13,9 @@ window. "Read it in the last N days" is the wrong test: if the recipient is away
 N+1 days, or busy, the handoff silently drops off their startup and the message is
 lost. The correct test is an explicit **read-acknowledgment stamp**.
 
-This rule exists because a time-windowed startup surface (e.g. "read handoffs from the
-last two calendar days") loses any handoff the recipient did not happen to open inside
-the window. A directive left on 7/18 is gone by 7/21. Delivery must be confirmed, not
-assumed from timing.
+A time-windowed startup list loses any handoff the recipient did not happen to open
+inside the window: a directive left on 7/18 is gone by 7/21. Delivery must be
+confirmed, not assumed from timing. See `casebook/incidents.md`.
 
 ## Mechanism
 

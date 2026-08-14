@@ -1,3 +1,19 @@
+---
+description: "Data pipeline integrity — no embedded figure titles, no hardcoded data in scripts, imputation vs correction, genuine logs, no test values in real data"
+paths:
+  - "**/*.{R,r,Rmd,qmd}"
+  - "**/*.{py,ipynb}"
+  - "**/*.{do,ado}"
+  - "**/*.tex"
+  - "**/1rawdata/**"
+  - "**/2processing/**"
+  - "**/2dataProcessing/**"
+  - "**/3data/**"
+  - "**/3dataAnalysis/**"
+  - "**/4code/**"
+  - "**/5manuscript/**"
+---
+
 # Data Pipeline Integrity
 
 Applies to: scripts in `2dataProcessing/`, `3dataAnalysis/`, `4code/`, and any R/Python/Stata scripts that produce data or figures.
@@ -55,7 +71,7 @@ When a script uses a package not already listed in `README_replication.md` softw
 
 A log or run transcript (Stata `.log`, R/Python console output, build log, estimation output, "validation output" file, any artifact that represents "what the computer did when this ran") is a **computer-written record of an actual execution**. It is never something you author, assemble, or curate by hand.
 
-**This section exists because of a documented failure.** A "validation output" file meant to show a single run of a script had been hand-assembled from excerpts of more than one run, with a hand-written header. The stitched pieces were internally inconsistent (a subgroup table reported more observations than the full-sample table), which read as an error and cost a round of investigation — the numbers were actually correct; the file was the problem. A genuine single-run log would never have looked that way.
+**This rule exists because of a documented failure (2026-07-01).** A Chile IPM "validation output" file that was meant to show a single run of a do-file had been **hand-assembled from excerpts of more than one run**, with a hand-written header. The stitched pieces were internally inconsistent (a subgroup table reported more observations than the full-sample table), which read as an error and cost a round of investigation — the numbers were actually correct; the file was the problem. A genuine single-run log would never have looked that way.
 
 **Absolute rules:**
 
@@ -83,4 +99,6 @@ license to pollute the data.
   back to the code trace; do not do the write.
 
 This is the sibling of the genuine-logs rule above: machine output is captured from
-real runs, and real data carries only real values.
+real runs, and real data carries only real values. (Origin: a request to write a test
+value into a live review sheet to confirm a blank-handling fix; the fix was verified
+by code trace and deploy instead.)

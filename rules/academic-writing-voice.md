@@ -1,7 +1,13 @@
 ---
 name: academic-writing-voice
 description: "Generic applied-economics writing-style guide and AI-anti-pattern checklist, plus a template for building your own personal voice profile"
-globs: ["*.tex", "*.qmd", "*.Rmd", "*.md", "*.txt"]
+paths:
+  - "**/*.tex"
+  - "**/*.qmd"
+  - "**/*.Rmd"
+  - "**/*.bib"
+  - "**/5manuscript/**"
+  - "**/manuscript/**"
 ---
 
 # Academic Writing Voice and Style

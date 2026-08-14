@@ -30,6 +30,10 @@ gmail-mcp/
 # Calendar rule (contains personal/family email addresses and calendar IDs)
 rules/calendar-check.md
 
+# Casebook of documented failures (names your projects, collaborators, own words).
+# The directory ships with only its README; your incidents file stays private.
+rules/casebook/incidents.md
+
 # Google Doc to-do removal skill (contains personal doc ID)
 skills/remove/
 

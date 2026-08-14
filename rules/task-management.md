@@ -54,7 +54,7 @@ Rules:
 
 ### Cleanup
 
-Completed items are a permanent audit trail and are **never deleted**. Do not remove a completed item from the record. To keep the active `.workspace/TODO.md` readable, completed items older than 30 days **may be MOVED (not deleted)**, verbatim, to a per-project archive file `.workspace/TODO_archive.md` (create it if it does not exist, mirroring the `## Completed` format). The archive grows without bound, and that is intended. Never delete completed items from either file. Moving to the archive is optional housekeeping, not required; if in doubt, leave completed items in `TODO.md`.
+Completed items are a permanent audit trail and are **never deleted**. Do not remove a completed item from the record. To keep the active `.workspace/TODO.md` readable, completed items older than 30 days **may be MOVED (not deleted)**, verbatim, to a per-project archive file `.workspace/TODO_archive.md` (create it if it does not exist, mirroring the `## Completed` format). The archive grows without bound, and that is intended. Never delete completed items from either file. Moving to the archive is optional housekeeping, not required; if in doubt, leave completed items in `TODO.md`. (Changed 2026-07-02 at the user's direction, replacing a delete-after-30-days rule: the completed record should live forever.)
 
 ## Dependency-aware ordering
 
@@ -95,4 +95,4 @@ This applies to:
 
 This does not apply to:
 - Retrospective lists of completed work (e.g., "What Was Done" sections in handoffs)
-- A personal to-do list kept outside the project (e.g., a separate notes doc or task manager)
+- A personal to-do list kept outside the project (managed separately)

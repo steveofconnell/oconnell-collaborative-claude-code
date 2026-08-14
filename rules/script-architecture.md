@@ -1,6 +1,9 @@
 ---
 description: "Guardrails against script proliferation — fires when creating or editing R, Python, or Stata scripts"
-globs: ["*.R", "*.py", "*.do"]
+paths:
+  - "**/*.{R,r,Rmd,qmd}"
+  - "**/*.{py,ipynb}"
+  - "**/*.{do,ado}"
 ---
 
 # Script Architecture Guardrails

@@ -4,14 +4,15 @@
 # Claude Code pipes a JSON object to this script's stdin on every render; the
 # script prints a single line shown at the bottom of the TUI. This one shows:
 #
-#   dir  |  model  |  $cost  |  ctx NN%  |  5hr NN% (Xh Ym)  |  7d NN% (Xh Ym)
+#   dir  |  model  |  ctx NN%  |  5hr NN% (Xh Ym)  |  7d NN% (Xh Ym)  |  replied HH:MM (Xh Ym ago)
 #
 #   - dir   : the project/repo name (basename of the working directory)
 #   - model : the active model's display name
-#   - cost  : approximate cumulative spend this session (see rate note below)
 #   - ctx   : percentage of the context window used
 #   - 5hr   : share of the rolling 5-hour usage limit consumed, with reset ETA
 #   - 7d    : share of the rolling 7-day usage limit consumed, with reset ETA
+#   - replied: when the last reply finished, and how long ago. Requires the
+#             stamp-last-reply.sh Stop hook; the field is omitted without it.
 #
 # The 5hr/7d parts only appear when Claude Code supplies rate-limit data, so
 # this degrades gracefully on plans or versions that don't report it.
@@ -26,15 +27,6 @@ proj=$(echo "$input" | jq -r '.workspace.repo.name // .workspace.current_dir // 
 [ -n "$proj" ] && proj=$(basename "$proj")
 
 model=$(echo "$input" | jq -r '.model.display_name // "Unknown model"')
-
-# Cumulative session cost, as estimated by Claude Code (cost.total_cost_usd).
-# Falls back to "—" on versions/plans that don't report it.
-cost_raw=$(echo "$input" | jq -r '.cost.total_cost_usd // empty')
-if [ -n "$cost_raw" ]; then
-  cost=$(printf "%.2f" "$cost_raw")
-else
-  cost="—"
-fi
 
 used=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
 if [ -n "$used" ]; then
@@ -77,11 +69,28 @@ if [ -n "$seven_day" ]; then
   [ -n "$seven_day_reset" ] && seven_day_part="$seven_day_part ($(fmt_eta "$seven_day_reset"))"
 fi
 
-if [ "$cost" = "—" ]; then
-  out=$(printf "%s  |  ctx %s" "$model" "$ctx")
-else
-  out=$(printf "%s  |  \$%s  |  ctx %s" "$model" "$cost" "$ctx")
+# Time since the last reply finished, stamped by the Stop hook. Shows when a
+# window has been left idle: "replied 14:32 (2h11m ago)".
+last_part=""
+key=$(printf "%s" "${CLAUDE_PROJECT_DIR:-$PWD}" | shasum | cut -c1-12)
+stamp_file=~/.claude/state/last_reply_"$key"
+if [ -f "$stamp_file" ]; then
+  stamp=$(cat "$stamp_file" 2>/dev/null)
+  if [ -n "$stamp" ]; then
+    ago=$(( now - stamp ))
+    clock=$(date -r "$stamp" +%H:%M 2>/dev/null)
+    if [ "$ago" -ge 3600 ]; then
+      last_part="replied $clock ($(( ago / 3600 ))h$(( (ago % 3600) / 60 ))m ago)"
+    elif [ "$ago" -ge 60 ]; then
+      last_part="replied $clock ($(( ago / 60 ))m ago)"
+    else
+      last_part="replied $clock (just now)"
+    fi
+  fi
 fi
+
+out=$(printf "%s  |  ctx %s" "$model" "$ctx")
+[ -n "$last_part" ] && out="$out  |  $last_part"
 [ -n "$five_hr_part" ] && out="$out  |  $five_hr_part"
 [ -n "$seven_day_part" ] && out="$out  |  $seven_day_part"
 [ -n "$proj" ] && out="$proj  |  $out"
