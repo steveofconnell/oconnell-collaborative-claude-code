@@ -223,6 +223,12 @@ drafting any email.** The rules that get violated most:
 - **Avoid AI-typical writing.** Nothing that reads as generic, over-hedged,
   excessively structured or formulaic. No bullet-point prose dressed as paragraphs.
   One hedge per claim, not three.
+- **Never end a sentence with a preposition** (2026-08-14). "the enumerator pool he
+  has already worked with" → "the enumerator pool he has already used", or recast so
+  the preposition sits with its object. Reach first for a verb that does not need the
+  particle; "with which he has worked" is grammatical but stilted and usually the
+  worse fix. Applies to everything you write, including Claude's own conversational
+  replies. Check the last word of every sentence before a draft goes out.
 - **No uninterpreted numbers.** Every number gets a referent and a substantive
   translation. "30 percent" must say 30 percent of what.
 - **Avoid noticeable word repetition** within a paragraph or abstract.
