@@ -9,6 +9,8 @@ Usage:
   sheets.py append <sheet_id_or_url> <tab> <tsv_file>
   sheets.py cell <sheet_id_or_url> <tab> <a1>
   sheets.py set-cell <sheet_id_or_url> <tab> <a1> <value>
+  sheets.py add-tab <sheet_id_or_url> <tab> [--rows N] [--cols N]
+  sheets.py perms <sheet_id_or_url>
 
 Sheet ID or URL both accepted. Sheets must be shared (Editor for writes,
 Viewer for reads) with the service account email printed by `info`.
@@ -128,6 +130,25 @@ def cmd_append(args):
     print(f"appended {len(rows)} rows to {args.tab}")
 
 
+def cmd_add_tab(args):
+    gc, _ = client()
+    sh = open_sheet(gc, args.sheet)
+    existing = [ws.title for ws in sh.worksheets()]
+    if args.tab in existing:
+        print(f"tab {args.tab!r} already exists — nothing done")
+        return
+    sh.add_worksheet(title=args.tab, rows=args.rows, cols=args.cols)
+    print(f"created tab {args.tab!r} ({args.rows}x{args.cols})")
+
+
+def cmd_perms(args):
+    gc, _ = client()
+    sh = open_sheet(gc, args.sheet)
+    for p in sh.list_permissions():
+        who = p.get("emailAddress") or p.get("domain") or p.get("type")
+        print(f"{p.get('role','?'):<8} {p.get('type','?'):<8} {who}")
+
+
 def main():
     p = argparse.ArgumentParser(description="Google Sheets CLI (service account)")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -172,6 +193,17 @@ def main():
     s.add_argument("tab")
     s.add_argument("tsv_file")
     s.set_defaults(func=cmd_append)
+
+    s = sub.add_parser("add-tab", help="Create a new tab (no-op if it exists)")
+    s.add_argument("sheet")
+    s.add_argument("tab")
+    s.add_argument("--rows", type=int, default=200)
+    s.add_argument("--cols", type=int, default=26)
+    s.set_defaults(func=cmd_add_tab)
+
+    s = sub.add_parser("perms", help="List who has access")
+    s.add_argument("sheet")
+    s.set_defaults(func=cmd_perms)
 
     args = p.parse_args()
     try:

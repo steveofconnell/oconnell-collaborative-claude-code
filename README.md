@@ -19,13 +19,12 @@ A shared configuration for [Claude Code](https://claude.ai/code) tailored to col
 
 | Directory | Purpose |
 |-----------|---------|
-| `rules/` | Behavioral rules auto-loaded by Claude Code — academic integrity, data protection, a **generic** applied-econ writing-style guide (plus a template for building your own voice profile), specification &amp; sample integrity (no undisclosed spec search or sample manipulation), fabrication-cleanup sweeps, project structure, data pipeline conventions, script architecture guardrails, task management |
+| `rules/` | Behavioral rules auto-loaded by Claude Code — academic integrity, data protection, a **generic** applied-econ writing-style guide (plus a template for building your own voice profile), specification &amp; sample integrity (no undisclosed spec search or sample manipulation), fabrication-cleanup sweeps, project structure, data pipeline conventions, script architecture guardrails, task management, a plain-prose voice rule (banned words and metaphors, no em dashes), slide-deck construction, cross-disciplinary literature search, persisting jointly built plans and inventories, reference-corpus currency, collaborator handoff acknowledgment, and R/Python/Stata style guides that load only when you work in those languages |
 | `hooks/` | Lifecycle hook scripts — blocks writes to raw data directories, monitors context usage, preserves state before context compression, and blocks `git push` of PII/secrets to non-Overleaf remotes |
 | `tools/` | Publish guard — a personal-content scanner and `pre-push` hook that block your identity, institution, and project names from reaching the shared repo (activated by `setup.sh` via `core.hooksPath`) |
 | `skills/` | Slash commands — `/start` (session startup), `/close` (handoff document), `/review-paper` (simulated referee report), `/slides` (beamer decks), `/verify-bib` (citation integrity check), `/figurenotes` (table/figure notes), `/qa-loop` (adversarial critic-fixer), `/learn` (distill a session's corrections into a durable config rule), `/overnight-paper` (unattended overnight pass that improves a project in an isolated worktree), and others |
 | `agents/` | Fresh-context reviewer agents — writing quality review, methodology audit |
-| `templates/` | Reusable institutional templates (IRB submissions, etc.) |
-| `statusline.sh` | Status line showing the model, session cost, context-window %, and the rolling 5-hour / 7-day usage limits with reset ETAs (needs `jq`) |
+| `statusline.sh` | Status line showing the model, context-window %, time since the last reply, and the rolling 5-hour / 7-day usage limits with reset ETAs (needs `jq`) |
 
 ## Collaborator Setup
 
@@ -53,7 +52,7 @@ claude
 - Installs **iTerm2**. Required — the multi-project launcher uses iTerm2 AppleScript to set per-project background colors. Native Terminal.app does not support this.
 - Installs **Rectangle** and imports a default keybinding set for window snapping.
 - Installs the **iTerm2 "Claude" Dynamic Profile** and tab-switching shortcuts (Option+Cmd+Left/Right).
-- Installs a **status line** showing the model, session cost, context-window %, and the rolling 5-hour / 7-day usage limits with reset ETAs. It only writes the `statusLine` entry if you don't already have one — a status line you've set yourself is left alone. (Needs `jq`: `brew install jq`.)
+- Installs a **status line** showing the model, context-window %, time since the last reply, and the rolling 5-hour / 7-day usage limits with reset ETAs. It only writes the `statusLine` entry if you don't already have one — a status line you've set yourself is left alone. (Needs `jq`: `brew install jq`.)
 - Installs `open-projects.sh` into your sync folder, adds an `open-projects` shell alias, and seeds an example tab-color config.
 - Symlinks the shared `rules/`, `hooks/`, `skills/`, `agents/` from the cloned repo into `~/.claude/`, so `git pull` updates them.
 
@@ -131,7 +130,7 @@ Re-running `setup.sh` is idempotent — every step checks whether the work is al
 shared-project/
 ├── CLAUDE.md          # Project-specific instructions (written by the PI, syncs to all)
 ├── .workspace/
-│   ├── HANDOFF_*.txt  # Session handoffs (one per session, syncs to all)
+│   ├── handoffs/      # HANDOFF_*.txt session handoffs (one per session, syncs to all)
 │   ├── memory/        # Memory files (managed by Claude, syncs to all)
 │   └── TODO.md        # Project task list
 ├── 1rawdata/          # Source data (protected — read-only)

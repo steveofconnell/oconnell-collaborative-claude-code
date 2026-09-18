@@ -125,6 +125,38 @@ and then state it once, plainly.
 
 ---
 
+## 3a. Cut the trailing clause that restates, reassures or justifies (2026-09-10)
+
+A sentence ends when the claim is made. What keeps getting welded on after it is a
+second clause that adds no information: it restates the first half, reassures the
+reader that the choice is fine, explains a mechanism the reader knows, or justifies
+why the work was done that way. Cut it.
+
+| Written | Kept |
+|---|---|
+| "Alone or in a pair, your call. The requirements are the same either way." | "Alone or in a pair." |
+| "The guest lecturer's decks are already 16:9 and are not yours to reformat anyway." | "The guest lecturer's decks are already 16:9." |
+| "...recorded in `deck-construction.md`, so it applies in every project from here." | "...recorded in `deck-construction.md`." |
+| "Already delivered on 3 September, so this only matters if you reuse it." | "Already delivered on 3 September." |
+| "a 16:9 frame is shorter than a 4:3 frame, so tall content spills off the bottom" | the overflow counts alone |
+
+Three habits produce it, and all three are the same failure:
+
+- **Reassurance.** "your call", "either way", "whichever you prefer", "no rush". The
+  reader did not ask to be reassured.
+- **Explaining the obvious mechanism.** The reader is usually an expert in the
+  material and does not need the mechanism spelled out.
+- **Justifying the work.** Process notes about how a file was edited, what was verified,
+  where a backup went, belong in the file list, once, not appended to the claim.
+  (Same failure as `deck-construction.md` rule 7.)
+
+**The test:** delete everything after the first full stop. If nothing the reader needs
+is gone, it stays deleted. This governs slides, syllabus prose, memory files and
+Claude's conversational replies alike.
+
+**Do not close a reply with a menu.** "The natural next step is X, but Y is more
+urgent. Which do you want?" States the next step and stops.
+
 ## 4. No pre-emptive defensiveness. A structural rule, not a tonal one
 
 Do not build an apparatus whose job is to raise an objection and then rebut it: a

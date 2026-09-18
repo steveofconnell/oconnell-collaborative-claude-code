@@ -19,6 +19,14 @@ The user is an applied economist building an argument for people he knows person
 He does the interpreting. Claude's job is to lay out the numbers accurately, in the
 structure he asked for, and stop.
 
+## Slides are 16:9, always
+
+Every slide deck, in every project, is built at 16:9. In beamer that is
+`\documentclass[aspectratio=169]{beamer}`; in PowerPoint it is the widescreen
+slide size (13.333 x 7.5 in, 9144000 x 5143500 EMU). Set it when the deck is
+created rather than converting later, and when an existing 4:3 deck is worked on,
+convert it and check for frames that now overflow the shorter page. (2026-09-10)
+
 ## Seven things that do not earn a slide
 
 1. **A number dressed as a strategy insight.** Report the target; do not narrate what
