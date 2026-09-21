@@ -23,6 +23,36 @@ Scripts whose output is cited in manuscript body text — inline statistics like
 - Within each code folder (`2processing/`, `4code/`), name scripts with numeric prefixes that reflect pipeline order: `01_clean.R`, `02_merge.R`, `03_regress.R`, etc. The numbering makes execution order self-documenting within that stage. When creating a new script, check existing files in that folder and assign the next number in sequence. If a script is inserted between existing steps, use an intermediate number (e.g., `02a_geocode.R`) rather than renumbering everything.
 - One script, one task. Each script should do one step of the pipeline (read, clean, merge, geocode, regress, etc.). Do not combine data preparation and analysis in the same file.
 
+## New script files — the default is no
+
+Enforced by the `guard-new-scripts.py` hook: creating a new `.R`, `.py` or `.do` file in a
+project's processing, analysis or manuscript folders is refused unless the user has approved
+it, and refused outright once that folder holds 8 scripts. Editing existing scripts is never
+refused; `.workspace/scratch/` is not checked.
+
+- **Extend before creating.** New work goes into an existing script as a labeled section, a
+  function, or an option (a flag, an argument, a loop over specifications). Reach for a new
+  file last.
+- **A new file is justified only by** a new raw data source, a step that runs over two
+  minutes and is worth caching, or a new analysis family (a new dataset or a new paper
+  section). Nothing else.
+- **Never a new file for:** a variant of an existing script (clustered, pooled, with or
+  without a subgroup, REML, a second estimator), a version with a different table note, a
+  step that copies or "promotes" output into the manuscript (write it there directly), a
+  one-off diagnostic, or a referee-response check. Variants become options in the parent
+  script; checks and referee responses go into one robustness script per analysis dataset.
+- **Banned name patterns:** `_v2`, `_old`, `_new`, `_clustered`, `_pooled`, `_Note`,
+  `_with…`, `_alt`, `promote…`, `zz_`, `XX_`, and a second script sharing an existing
+  number. Each is the symptom of a file that should have been a section or an option.
+- **Approval.** When a new file is warranted, ask the user in the conversation, naming the
+  file and why no existing script can hold the work. Only after the user says yes, put this
+  line in the file's first lines (the hook looks for it):
+  `# New script approved by <name> YYYY-MM-DD: <why a new file>`
+  Never write that line without the user's yes in this conversation.
+- **A folder at the limit gets consolidated, not extended.** Propose the consolidation (see
+  `script-architecture.md`, refactoring protocol); do not route around the limit by writing
+  into a new subfolder.
+
 ## Pipeline architecture — the funnel principle
 The pipeline should be shaped like a funnel: many source-specific read/clean scripts at the top → fewer merge/assembly scripts in the middle → one baseline + one robustness script per analysis dataset at the bottom. Script count should decrease at each stage, not stay flat or grow. Linear chains — where each script's sole purpose is to incrementally transform the previous script's output — are the primary symptom of over-splitting and must be consolidated into one script with labeled sections. See `rules/script-architecture.md` (scoped to `.R`, `.py`, `.do`) for operational guardrails.
 

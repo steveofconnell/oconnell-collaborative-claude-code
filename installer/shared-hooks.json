@@ -5,7 +5,9 @@
       "matcher": "Edit|Write|MultiEdit",
       "hooks": [
         { "type": "command", "command": "~/.claude/hooks/protect-rawdata.sh" },
-        { "type": "command", "command": "~/.claude/hooks/block-banned-phrases.sh" }
+        { "type": "command", "command": "~/.claude/hooks/block-banned-phrases.sh" },
+        { "type": "command", "command": "python3 ~/.claude/hooks/guard-new-scripts.py" },
+        { "type": "command", "command": "python3 ~/.claude/hooks/guard-todo-structure.py" }
       ]
     },
     {

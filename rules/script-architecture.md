@@ -34,10 +34,28 @@ Each section should be runnable in sequence but conceptually self-contained. Thi
 
 ## Script count targets
 
-- **Processing (`2processing/`)**: 6-12 scripts is typical, depending on number of raw data sources. One script per source or closely related source group.
-- **Analysis (`4code/`)**: 3-6 scripts. One baseline + one robustness per analysis dataset, plus graph/table scripts if needed.
+- **Processing (`2processing/`)**: 4-8 scripts, depending on the number of raw data sources. One script per source or closely related source group.
+- **Analysis (`4code/` or a manuscript code folder)**: 3-6 scripts. One baseline + one robustness per analysis dataset, plus one tables-and-figures script.
 
-If a folder exceeds these ranges, audit for consolidation opportunities before adding more.
+**Hard limit: 8 scripts per folder,** enforced by the `guard-new-scripts.py` hook, which also
+refuses any new script file that lacks the user's approval line (see `project-structure.md`,
+"New script files"). A folder at the limit is consolidated, not extended.
+
+## Variants, checks and referee responses are options, not files
+
+The common way a folder reaches dozens of scripts is not linear chains but variants: a
+`_clustered` copy, a `_pooled` copy, a `_withX` copy, a `_Note` copy for a different table
+note, a `promote_` script that copies another script's output into the manuscript, and one
+new file per diagnostic or per referee question. Each of these belongs inside an existing
+script:
+
+- **A variant** (clustering level, pooling, sample subset, estimator) is an argument or a
+  loop over specifications in the parent script, with every specification written to the
+  same output.
+- **A table-note or formatting change** is an edit to the script that writes the table.
+- **Output destined for the manuscript** is written there by the script that produces it.
+- **Diagnostics, placebo and permutation checks, and referee-response checks** go into the
+  analysis dataset's one robustness script, one labeled section each.
 
 ## Refactoring protocol
 

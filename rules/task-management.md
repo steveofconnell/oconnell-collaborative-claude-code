@@ -24,7 +24,18 @@ Every project has a single `.workspace/TODO.md`. This is the canonical source of
 ```
 
 Rules:
-- One line per task. Sub-bullets for context only.
+- **Pending holds open tasks and nothing else.** One line per task, a `Done when:`
+  sub-bullet, and at most two more short sub-bullets (a blocker, a pointer to where the
+  detail lives). No narrative, no session history, no findings, no paragraphs of context.
+  That material belongs in the handoff, `DECISIONS.md`, or a note file the item points to.
+  Enforced by the `guard-todo-structure.py` hook, which refuses a write that adds a checked
+  item, a prose line, or a fourth sub-bullet to Pending. (2026-09-21)
+- **A task is work someone will do.** An item whose owner will not act on it ("unassigned",
+  "no action by the PI", "not blocking, background") is not a task: raise it once with the
+  user, then drop it. Do not keep it as a record; the record is the handoff.
+- **Requests to other people: one item per person,** pointing at a list in the relevant
+  folder (for example "RA: the open questions in `DECISIONS.md` A4 to A9"), not one
+  item per question.
 - Every task gets an `added` date.
 - **Every task carries a `Done when:` sub-bullet** naming the concrete, checkable artifact that proves completion — a file at a path, a ledger row updated, a value produced, a document sent, a state reached. This turns "is it done?" from a memory judgment into a mechanical check: the reconciliation sweep (and any human) verifies the artifact exists rather than recalling whether the work happened. If a task genuinely has no external artifact (a pure decision or conversation), state the observable outcome instead. Skip only for throwaway one-liners.
 - Blocked tasks state their blocker inline (see dependency rules below).
@@ -33,7 +44,14 @@ Rules:
 ### Lifecycle
 
 **Adding tasks:**
-- When a to-do surfaces during a session (user states it, or it's a clear next step from work just done), write it to `.workspace/TODO.md` immediately. Do not defer to handoffs, memory, or conversation notes.
+- **Only the user adds tasks.** Write an item when the user states a task or approves one
+  Claude proposed, and write it immediately (not deferred to the handoff). A follow-up
+  Claude notices on its own (a next step, a check worth running, a loose end) goes into the
+  reply as a one-line proposal, not into the file. Unapproved proposals are not carried
+  forward. (Changed 2026-09-21 from "write every clear next step immediately", which filled
+  one project's TODO to 276 KB.)
+- **Before adding, check for an existing item** that covers the same work, and extend it
+  (its title or its `Done when:`) instead of adding a second item.
 - Give each new task its `Done when:` acceptance criterion **at creation** (see Format), not at close. Naming the completion artifact when you write the task is what makes later reconciliation a check instead of a guess.
 - If `.workspace/TODO.md` doesn't exist yet, create it (and `.workspace/` if needed).
 
