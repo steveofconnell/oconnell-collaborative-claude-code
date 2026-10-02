@@ -91,9 +91,9 @@ Read the redacted transcript from `recordings/redacted/`. Write notes to `interv
 
 ### Step 6: Update indexes
 
-**keyword_index.csv** — Add rows for notable keywords that appear in this interview. Each row: `keyword, person, date, context`. Keywords are substantive terms a researcher would search for: proper nouns (legislation, organizations, events), technical terms (parity, loan rate, target price), place names tied to specific events, and distinctive phrases. Skip generic words.
+**keyword_index.csv** — Add rows for notable keywords that appear in this interview. Each row: `keyword, person, date, context`. Keywords are substantive terms a researcher would search for: proper nouns (legislation, organizations, events), technical terms of the field (program names, policy instruments, units of measure), place names tied to specific events, and distinctive phrases. Skip generic words.
 
-**topic_index.csv** — Add rows tagging this interview by research topic. Each row: `topic, person, date, relevance`. Topics map to the project's analytical categories: USDA_response, tractorcade_logistics, policy_analysis, farm_crisis_personal, political_realignment, AAM_organization, media_coverage, extremism, Carter_administration, congressional_response, suicides, etc. One interview may have many topic tags.
+**topic_index.csv** — Add rows tagging this interview by research topic. Each row: `topic, person, date, relevance`. Topics map to the project's analytical categories, as listed in the project's own codebook (e.g., agency_response, event_logistics, policy_analysis, personal_experience, organization_history, media_coverage). One interview may have many topic tags.
 
 ### Step 7: Update tracking
 

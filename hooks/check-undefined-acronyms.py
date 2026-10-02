@@ -124,7 +124,7 @@ WHITELIST = {
     "OOB", "ACE", "CLA",
     # Universally understood administrative abbreviations and document tokens.
     "TBD", "TBC", "NA", "README", "HTTP", "HTTPS", "PST", "EST", "EDT", "UTC",
-    # Georgia Ground Screw venture terms — defined once in the project CLAUDE.md
+    # Small-business venture terms — defined once in the project CLAUDE.md
     # and used constantly across its filings, contracts, and notes.
     "AGS", "OA", "DBA", "DBAS", "SOS", "APR", "GL", "BOI", "ECAS", "HNOA",
     "LTL", "PCO", "CRZ", "DBH", "VOIP", "CRM", "ESR", "ICC", "PE",

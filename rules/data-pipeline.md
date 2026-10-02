@@ -21,7 +21,7 @@ Applies to: scripts in `2dataProcessing/`, `3dataAnalysis/`, `4code/`, and any R
 ## No embedded titles or subtitles in figures
 Never add overall figure titles or subtitles via `ggtitle()`, `labs(title=..., subtitle=...)`, or `plot_annotation(title=..., subtitle=...)`. All figure titles are handled by the LaTeX/Beamer context (`\frametitle`, `\caption`, `\subcaption`). Embedding titles in the PNG creates duplication and prevents the figure from being reused across slide decks, papers, and appendices without re-rendering.
 
-Panel-level sub-labels within multi-panel patchwork compositions (e.g., `"A. Total Farms"` passed through `plot_es_panel(title="A. Total Farms")`) are acceptable — these label individual panels, not the figure as a whole.
+Panel-level sub-labels within multi-panel patchwork compositions (e.g., `"A. Total Firms"` passed through `plot_es_panel(title="A. Total Firms")`) are acceptable — these label individual panels, not the figure as a whole.
 
 Helper function signatures should use `title = NULL` as the default (not remove the parameter entirely), so call sites that pass sub-panel labels positionally continue to work.
 
@@ -38,7 +38,7 @@ Never hardcode API keys, passwords, or credentials in scripts. Use environment v
 When a LaTeX document sets `\graphicspath`, all `\includegraphics` calls must use paths relative to that setting — never prepend the graphics path directory name. Inconsistent path conventions compile by accident but break on directory changes.
 
 ## Script outputs referenced in manuscripts
-When a script produces values that are cited in manuscript text or hardcoded in LaTeX tables, add a comment in the tex source pointing to the script and output file (e.g., `% Source: 3dataAnalysis/ParityPricePanel/03_exposure_index_regional_analysis.py`). When creating or modifying a table in tex, check whether the values should be auto-generated or at minimum verified against script output.
+When a script produces values that are cited in manuscript text or hardcoded in LaTeX tables, add a comment in the tex source pointing to the script and output file (e.g., `% Source: 3dataAnalysis/PricePanel/03_regional_analysis.py`). When creating or modifying a table in tex, check whether the values should be auto-generated or at minimum verified against script output.
 
 ## README and documentation must track the code
 When modifying a script's inputs, outputs, or dependencies, check whether `README_replication.md` or equivalent documentation references the old state. Update documentation in the same commit as the code change. Stale documentation is worse than no documentation — it actively misleads.
@@ -71,7 +71,7 @@ When a script uses a package not already listed in `README_replication.md` softw
 
 A log or run transcript (Stata `.log`, R/Python console output, build log, estimation output, "validation output" file, any artifact that represents "what the computer did when this ran") is a **computer-written record of an actual execution**. It is never something you author, assemble, or curate by hand.
 
-**This rule exists because of a documented failure (2026-07-01).** A Chile IPM "validation output" file that was meant to show a single run of a do-file had been **hand-assembled from excerpts of more than one run**, with a hand-written header. The stitched pieces were internally inconsistent (a subgroup table reported more observations than the full-sample table), which read as an error and cost a round of investigation — the numbers were actually correct; the file was the problem. A genuine single-run log would never have looked that way.
+**This rule exists because of a documented failure (2026-07-01).** A "validation output" file that was meant to show a single run of a do-file had been **hand-assembled from excerpts of more than one run**, with a hand-written header. The stitched pieces were internally inconsistent (a subgroup table reported more observations than the full-sample table), which read as an error and cost a round of investigation — the numbers were actually correct; the file was the problem. A genuine single-run log would never have looked that way.
 
 **Absolute rules:**
 

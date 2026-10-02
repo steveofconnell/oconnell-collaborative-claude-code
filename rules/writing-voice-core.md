@@ -39,7 +39,7 @@ which carry precise technical meaning in economics and statistics are the field'
 vocabulary, never flagged: *shock, spillover, channel, mechanism, elasticity,
 bound, weight, panel, sampling frame, field, identification, robustness, leverage
 (statistical), anchor, margin, slack, noise, signal, tail.* Terms coined in the
-user's own work (e.g. "grievance register", "framing register") are likewise exempt.
+user's own work are likewise exempt.
 
 **When unsure whether a word is a term of art or a reach, flag it rather than
 substituting silently.**
@@ -52,7 +52,7 @@ which literal senses survive. Dates are when the ban was set.
 | Banned | Use instead | Literal sense that survives |
 |---|---|---|
 | **scoped / scope / scoped to** (2026-05-28) | say what it covers, applies to, excludes | fine in planning notes and scaffolding, not prose |
-| **register** = tone/voice/formality (2026-06-02) | "the tone you want", "writing as a peer" | a record or list; the coined "grievance/framing register" |
+| **register** = tone/voice/formality (2026-06-02) | "the tone you want", "writing as a peer" | a record or list; a term coined in the user's own work |
 | **surface** as a verb (2026-06-02) | raise, bring up, show, reveal, flag, point out, find | the noun (a physical surface) |
 | **spine** as default metaphor (2026-06-02) | the core, the foundation, what it is built on | a deliberate defined term |
 | **land** as a verb (2026-06-07) | does this work, is this convincing, does this read right | the noun — required and central (land, farmland, cropland) |

@@ -36,7 +36,7 @@ The note must include every applicable component from this checklist:
 
 ### Required for all tables and figures
 1. **What is shown.** One sentence stating what the table/figure displays.
-2. **Reading example.** A concrete plain-language gloss of one specific value: "A value of 0.26 indicates that the county's crop-weighted average market price was 26 percent below parity." This is mandatory — every note gets at least one.
+2. **Reading example.** A concrete plain-language gloss of one specific value: "A value of 0.26 indicates that the district's weighted average price was 26 percent below the benchmark price." This is mandatory — every note gets at least one.
 3. **Sample and restrictions.** N, unit of observation, any subsetting or exclusion criteria.
 4. **Data source.** Where the underlying data come from.
 
