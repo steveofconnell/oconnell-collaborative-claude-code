@@ -201,6 +201,11 @@ take precedence over generic defaults. Dated markers to modernize are listed at 
 - **Typed merges, always** with a mandatory keep/assert and `nogen`, pulling only needed
   columns: `merge m:1 key using "…", assert(3) nogen keepusing(…)` /
   `keep(match master)`. Never an untyped or unchecked merge.
+- **Never attach values by row position** (2026-10-20): no `merge 1:1 _n using`, no
+  `gen x = y[_n]` across datasets, no `append` followed by positional alignment, no
+  `putmata`/`getmata` round trip that assumes a sort order. Every value joins on a key
+  with typed cardinality and an assert. Equal `_N` in two datasets is not the same
+  observations in the same order. Origin: `casebook/incidents.md` → row-order attachment.
 - `preserve … collapse/keep/duplicates drop … tempfile … save … restore` for side
   computations; named intermediate `.dta` at meaningful stages with `compress` +
   `label data "…"` immediately before `save … , replace`.

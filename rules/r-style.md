@@ -93,6 +93,15 @@ language-independent.
   joins silently produce a many-to-many fan-out; pass `relationship = "one-to-one"`
   or `"many-to-one"` (dplyr 1.1+) and check for unmatched keys explicitly rather
   than trusting the row count afterwards.
+- **Never attach a column to a frame by position or by matching length** (2026-10-20).
+  `frame$x <- value`, `cbind()`, `bind_cols()` or `mutate(x = value)` with a vector built
+  from another table assumes the two share a row order, and nothing checks that they do.
+  Every value lands on its row through a key join (`left_join(..., by = key,
+  relationship = "one-to-one")`), so a missing or duplicated key stops the run. Choosing
+  the target frame by `length(value) == nrow(frame)` is the same error with a disguise:
+  two frames of equal length are not the same rows in the same order. A vector may be
+  assigned directly only when it was computed from that same frame in that same pipe.
+  Origin: `casebook/incidents.md` → row-order attachment.
 - **Flag, do not delete.** Build `*_flag` columns and filter at the analysis step
   rather than dropping observations during processing.
 - Avoid `suppressWarnings()` around anything but a known, commented cause.

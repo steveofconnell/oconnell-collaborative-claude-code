@@ -113,6 +113,14 @@ unilaterally in the middle of unrelated work.
 These are house conventions, adapted from the Stata patterns in
 `stata-style.md` because the reasoning is language-independent.
 
+- **Never attach a column by position or by matching length** (2026-10-20).
+  `df["x"] = other_df["x"]` aligns on the index, which is silently positional after a
+  `reset_index()` or when both are the default range index; `pd.concat(axis=1)`, `zip()`
+  over two tables and `np.column_stack` assume a shared row order with no check. Every
+  value lands on its row through `merge(..., on=key, validate="one_to_one")` (or
+  `"many_to_one"`), and a length check is not a substitute: two tables of equal length
+  are not the same rows in the same order. Origin: `casebook/incidents.md` → row-order
+  attachment.
 - **Fail loudly on a violated precondition.** A missing input file raises with an
   actionable message naming what to run first, rather than producing an empty
   output:
