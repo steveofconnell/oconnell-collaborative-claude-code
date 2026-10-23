@@ -13,7 +13,14 @@
     {
       "matcher": "Bash",
       "hooks": [
-        { "type": "command", "command": "python3 ~/.claude/hooks/protect-pii-github.py" }
+        { "type": "command", "command": "python3 ~/.claude/hooks/protect-pii-github.py" },
+        { "type": "command", "command": "python3 ~/.claude/hooks/guard-outbound-messages.py" }
+      ]
+    },
+    {
+      "matcher": "mcp__.*",
+      "hooks": [
+        { "type": "command", "command": "python3 ~/.claude/hooks/guard-outbound-messages.py" }
       ]
     }
   ],
